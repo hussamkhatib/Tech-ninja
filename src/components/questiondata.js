@@ -1,5 +1,12 @@
 const questionData = [{
- question: "some question",
+ question: `What is the outcome of the two alerts below?
+ 
+ var foo = "Hello";
+ (function() {
+   var bar = " World";
+   alert(foo + bar);
+ })();
+ alert(foo + bar);`,
  answer: "1",
  options:  ['1','2','3','4']
 },{

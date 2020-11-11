@@ -1,11 +1,14 @@
 import React from 'react'
-import questionData from './questiondata'
+import styled from 'styled-components'
 
-const Question = ({Index}) => {
+const Question = ({Question,Index}) => {
+  const QuestionWrapper = styled.div`
+  padding: 1em;
+  text-align: center;`
     return (
-        <div>
-          {questionData[Index].question}
-        </div>
+        <QuestionWrapper>
+            <pre>{Question[Index].question}</pre>
+        </QuestionWrapper>    
     )
 }
 
