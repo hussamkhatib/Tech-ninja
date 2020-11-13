@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Options = ({Option,Index,nextQuestion}) => {
+const Options = ({Option,rankIndex,questionIndex,loadResult}) => {
     const Grid = styled.div`
     display:grid;
     grid-template-columns: 1fr 1fr;
@@ -20,12 +20,13 @@ const Options = ({Option,Index,nextQuestion}) => {
     }
     `
     
-    const allChoices = [Option[Index].answer,...Option[Index].wrong]
-                        .sort(() => Math.random() - .5)
+    const allChoices = [Option[rankIndex][questionIndex].answer,...Option[rankIndex][questionIndex].wrong]
+                       // .sort(() => Math.random() - .5)
+                        
     return (
         <Grid>   
           {allChoices.map(item => (
-             <Options  onClick={nextQuestion}>{item}</Options> 
+             <Options key={item} onClick={loadResult}>{item}</Options> 
           )
           )}
         </Grid>

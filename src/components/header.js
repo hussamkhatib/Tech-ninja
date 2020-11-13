@@ -1,13 +1,13 @@
 import React from 'react'
 import Logo from './logo'
-import { Wrapper,Heading } from './headerStyles'
+import { HeadWrapper,Heading } from './headerStyles'
 
 const Header = () => {
     return (
-        <Wrapper>
+        <HeadWrapper>
             <Logo />
             <Heading>Tech Ninjas</Heading>
-        </Wrapper>
+        </HeadWrapper>
     )
 }
 

@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Question = ({Question,Index}) => {
+const Question = ({ Question,rankIndex,questionIndex }) => {
   const QuestionWrapper = styled.div`
   padding: 1em;
   text-align: center;`
-    return (
+   
+  return (
         <QuestionWrapper>
-            <pre>{Question[Index].question}</pre>
+            {Question[rankIndex][questionIndex].question}
         </QuestionWrapper>    
     )
 }
