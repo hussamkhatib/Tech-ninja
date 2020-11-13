@@ -1,8 +1,13 @@
 import React from 'react'
-import {CardWrapper} from './cardStyles'
+import styled from 'styled-components'
 
-const Card = ({children}) => {
-
+const Card = ({ children,Active }) => {
+    const CardWrapper = styled.div`
+    border: 3px solid ${Active};
+    max-width: 60ch;
+    min-height:40vh;
+    `
+    
       return(
           <>
         <CardWrapper>

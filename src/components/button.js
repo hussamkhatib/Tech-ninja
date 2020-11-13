@@ -1,12 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Button = ({nextQuestion}) => {
+const Button = ({ nextQuestion,Active }) => {
     const Button =  styled.button`
-    padding: 1em;`    
+    padding: 2em;
+    background:${Active};
+    border: none;`    
     return (
         <>
             <Button onClick={nextQuestion}>
+            Next
             </Button>
         </>
     )

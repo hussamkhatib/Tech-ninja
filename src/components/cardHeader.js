@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 
-const CardHeader = ({questionIndex,totalQuestions}) => {
+const CardHeader = ({ questionIndex,totalQuestions,Active }) => {
 const CardHeaderWrapper = styled.div`
-background: #FBECD6;
-color:#282C34;
+background: ${Active};
+color:#282c34;
 `
 const QuestionNO = styled.div`
 display:inline-block;

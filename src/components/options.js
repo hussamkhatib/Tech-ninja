@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Options = ({Option,rankIndex,questionIndex,loadResult}) => {
+const Options = ({ Option,rankIndex,questionIndex,loadResult,Active }) => {
     const Grid = styled.div`
     display:grid;
     grid-template-columns: 1fr 1fr;
@@ -13,9 +13,9 @@ const Options = ({Option,rankIndex,questionIndex,loadResult}) => {
     background: none;
     color: inherit;
     padding:1em;
-    border: 2px solid #FBECD6;
+    border: 2px solid ${Active};
     &:hover {
-      background: #FBECD6;
+      background: ${Active};
       color: #282C34;
     }
     `

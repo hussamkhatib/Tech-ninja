@@ -5,6 +5,5 @@ max-width:75ch;
 margin:0 auto;
 padding: 1em;`
 
-export const Wrapper = styled.div`
-color: #FBECD6;
-`
+
+export const colors = ['#e6e6e6','#61DAFB','#ECB613']
