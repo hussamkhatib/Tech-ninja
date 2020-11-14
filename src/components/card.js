@@ -1,10 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
 
-const Card = ({ children,Active }) => {
+import styled from 'styled-components'
+const Card = ({ children,Active,Width }) => {
     const CardWrapper = styled.div`
     border: 3px solid ${Active};
-    max-width: 60ch;
+    max-width: ${Width};
     min-height:40vh;
     `
     
