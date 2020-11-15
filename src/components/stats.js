@@ -1,9 +1,10 @@
 import React from 'react'
 
-const Stats = () => {
+const Stats = ({ children }) => {
+
     return (
         <div>
-            
+            {children}
         </div>
     )
 }

@@ -14,6 +14,11 @@ import Logo from './components/logo'
 import { Main,colors } from './AppStyles'
 
 import Streak from './components/streak'
+import Stats from './components/stats'
+import {StreakHeading } from './components/streakStyles'
+import Rank from './components/rank/rank'
+import Life from './components/life/life'
+import Powerups from './components/powerups/powerups'
 
 function App() {
   
@@ -45,6 +50,13 @@ function App() {
   color: ${colors[rankIndex]};
   `
  
+  const StreakContainer = styled.div`
+  border: 1px solid ${colors[rankIndex]};
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  display: flex;`
+
   return (
     (showResults === 'startGame')? 
     <Wrapper>
@@ -63,7 +75,7 @@ function App() {
           <Logo Active={colors[rankIndex]}/>
         </Header>
         <Main>
-          <Card Active={colors[rankIndex]} Width={'65ch'}>
+          <Card Active={colors[rankIndex]} >
         
             {!showResults && 
             <CardHeader 
@@ -87,7 +99,16 @@ function App() {
             <Button nextQuestion={nextQuestion} Active={colors[rankIndex]} />}
 
       </Card>
-      <Streak rect={curStreak}/>
+
+      <Stats Active={colors[rankIndex]}>
+        <Rank Active={colors[rankIndex]} RankKyu={8-rankIndex}/>
+        <StreakHeading>streak</StreakHeading>
+        <StreakContainer>
+          <Streak rect={curStreak} Active={colors[rankIndex]}/>
+        </StreakContainer>
+        <Life Lives={3} Active={colors[rankIndex]}/>
+        <Powerups />
+      </Stats>
       </Main>
 
     </Wrapper>
