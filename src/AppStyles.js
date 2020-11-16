@@ -3,10 +3,13 @@ import styled from 'styled-components'
 export const Main = styled.div`
 max-width:75ch;
 margin:0 auto;
-padding: 1em;
 display:grid;
-grid-auto-flow:column;
-grid-template-columns: 5fr 1fr;
+padding: 0 1em;
+@media screen and (min-width: 769px) {
+    grid-auto-flow:column;
+    grid-template-columns: 5fr 1fr;
+    padding: 1em;
+}
 gap: 1em;   
 `
 

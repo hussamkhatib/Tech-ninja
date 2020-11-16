@@ -15,7 +15,6 @@ import { Main,colors } from './AppStyles'
 
 import Streak from './components/streak'
 import Stats from './components/stats'
-import {StreakHeading } from './components/streakStyles'
 import Rank from './components/rank/rank'
 import Life from './components/life/life'
 import Powerups from './components/powerups/powerups'
@@ -26,7 +25,7 @@ function App() {
   const [showResults,setShowResults] = useState(false);
   const [curStreak,setCurStreak] = useState([])
   const [rankIndex,setRankIndex] = useState(0);
-
+  //const [diasisabled]
 
   const loadResult = (e) => {
       setShowResults(true)
@@ -43,25 +42,24 @@ function App() {
     setRankIndex(rankIndex + 1)
   }
   }
-
+  const active = colors[rankIndex]
   
-
   const Wrapper = styled.div`
-  color: ${colors[rankIndex]};
+  color: ${active};
   `
  
-  const StreakContainer = styled.div`
-  border: 1px solid ${colors[rankIndex]};
+ /* const StreakContainer = styled.div`
+  border: 1px solid ${active};
   width: 100%;
   height: 40px;
   border-radius: 4px;
-  display: flex;`
+  display: flex;`*/
 
   return (
     (showResults === 'startGame')? 
     <Wrapper>
       <Header >
-          <Logo Active={colors[rankIndex]}/>
+          <Logo Active={active}/>
       </Header>
       <Main>
         <Card Width={'100%'}>
@@ -72,14 +70,14 @@ function App() {
     : 
     <Wrapper>
         <Header >
-          <Logo Active={colors[rankIndex]}/>
+          <Logo Active={active}/>
         </Header>
         <Main>
-          <Card Active={colors[rankIndex]} >
+          <Card Active={active} >
         
             {!showResults && 
             <CardHeader 
-            Active={colors[rankIndex]} 
+            Active={active} 
             questionIndex={questionIndex} 
             totalQuestions={questionData[rankIndex].length}/>}
             
@@ -94,20 +92,17 @@ function App() {
             rankIndex={rankIndex} 
             questionIndex={questionIndex} 
             loadResult={loadResult} 
-            Active={colors[rankIndex]}/>
+            Active={active}/>
             :
-            <Button nextQuestion={nextQuestion} Active={colors[rankIndex]} />}
+            <Button nextQuestion={nextQuestion} Active={active} />}
 
       </Card>
 
-      <Stats Active={colors[rankIndex]}>
-        <Rank Active={colors[rankIndex]} RankKyu={8-rankIndex}/>
-        <StreakHeading>streak</StreakHeading>
-        <StreakContainer>
-          <Streak rect={curStreak} Active={colors[rankIndex]}/>
-        </StreakContainer>
-        <Life Lives={3} Active={colors[rankIndex]}/>
-        <Powerups />
+      <Stats Active={active}>
+        <Rank Active={active} RankKyu={8-rankIndex}/>
+        <Streak rect={curStreak} Active={active} />
+        <Life Lives={3} Active={active}/>
+        <Powerups Disabled={true} Active={active}/>
       </Stats>
       </Main>
 

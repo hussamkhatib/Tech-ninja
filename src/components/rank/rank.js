@@ -6,13 +6,20 @@ const Rank = ({ RankKyu,Active }) => {
     const RankDisplay = styled.p`
     background: ${Active};
     color: #282c34; 
-    align-items:center;
     padding: .4em 0.6em;
-    border-radius: 10px;
-    text-align: center;`
+    border-radius: 20px;
+    text-align: center;
+    font-size:0.8em;`
 
     const Wrapper = styled.div`
-    `
+    display: flex;
+    padding:0.2em;
+    align-items:center;
+    justify-content: space-evenly;
+    @media screen and (min-width: 769px) {
+    grid-column:1; 
+    flex-direction:unset;
+    }`
     return (
     <Wrapper>
         <RankHeading>rank</RankHeading>

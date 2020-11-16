@@ -1,7 +1,18 @@
 import React from 'react'
-import { SvgContainer } from './streakStyles'
+import { StreakHeading,Wrapper } from './streakStyles'
+import styled from 'styled-components'
 
-const Streak = ( {rect,Active} ) => {
+const Streak = ({ rect,Active }) => {
+  const SvgContainer = styled.svg`
+  padding:  0.2em;
+  align-items: center;`
+  
+  const SvgDiv = styled.div`
+  border: 1px solid ${Active};
+    min-width: 120px;
+    height: 40px;
+    border-radius: 4px;
+    display: flex;`
 
 const svgs = []; 
 const chunkSize = 5;
@@ -19,9 +30,12 @@ for (let i = 0; i < rectLength; i += chunkSize) {
   const chunk = rect.slice(i, i + chunkSize);
   rectChunks.push(chunk);
 }
-//console.log('rectLength : '+rectLength,'sLength : '+svgLength,'reackchunk : '+ rectChunks)
 
-return svgs.map((svgItem, index) => (
+return (
+  <Wrapper>
+  <StreakHeading>streak</StreakHeading>
+  <SvgDiv>
+  {svgs.map((svgItem, index) => (
   <SvgContainer key={index} {...svgItem} xmlns="http://www.w3.org/2000/svg" width="26" height="30" >
     {rectChunks[index].map((rectItem,index) => (
       <rect {...rectItem} 
@@ -32,6 +46,9 @@ return svgs.map((svgItem, index) => (
         />
     ))}
   </SvgContainer>
-));
+  ))}
+  </SvgDiv>
+</Wrapper>
+ )
 }
 export default Streak

@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 
-
-
-export const SvgContainer = styled.svg`
-padding:  0.2em;
-align-items: center;`
-
-
+export const Wrapper = styled.div`
+display:flex;
+flex-direction:column;
+justify-content:space-evenly;
+align-items:center;
+@media screen and (max-width: 769px) {
+grid-column:2;
+grid-row:1;
+}`
 export const StreakHeading = styled.p`
 text-align:center;
 font-size: .75em;
