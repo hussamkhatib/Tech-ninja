@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components' 
 import {SvgHeading} from '../streakStyles'
 
-
 const Life = ({ Lives,Active }) => {
     const Wrapper = styled.div`
     display:flex;

@@ -23,7 +23,7 @@ const Powerups = ({ Disabled,Active }) => {
     }
     `
 
-    const buttonText = ['x2','50/50','🚫','+1🖤']
+    const buttonText = ['50/50','❄️','🚫','+1🖤']
     return (
         <PowerupsContainer>
             <PowerupsHeading>Powerups</PowerupsHeading>

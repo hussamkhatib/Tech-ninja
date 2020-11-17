@@ -38,7 +38,7 @@ return (
   {svgs.map((svgItem, index) => (
   <SvgContainer key={index} {...svgItem} xmlns="http://www.w3.org/2000/svg" width="26" height="30" >
     {rectChunks[index].map((rectItem,index) => (
-      <rect {...rectItem} 
+      <rect key={index} {...rectItem} 
        width="5" height="30" 
        fill={Active} rx='2.5'
         x={x[index]}
