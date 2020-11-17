@@ -12,6 +12,10 @@ padding: 0 1em;
 }
 gap: 1em;   
 `
-
+export const StartMain = styled(Main)`
+@media screen and (min-width: 769px) {
+    grid-template-columns: unset;
+}
+`
 
 export const colors = ['#e6e6e6','#61DAFB','#ECB613','#866CC7','#3C7EBB','orangered','hotpink','brown']
