@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useRef } from 'react'
+import React, { useState,useEffect } from 'react'
 
 import styled from 'styled-components'
 import  Card from './components/card'
@@ -25,65 +25,102 @@ import Powerups from './components/powerups/powerups'
 
 function App() {
   
-  const [questionIndex, setQuestionIndex] = useState(0);
+  const [questionIndex,setQuestionIndex] = useState(0);
   const [showResults,setShowResults] = useState('startGame');
-  const [curStreak,setCurStreak] = useState([])
+  const [curStreak,setCurStreak] = useState({
+    streak: [],
+    powerups: [0,0,0,0]
+  })
   const [rankIndex,setRankIndex] = useState(0);
   const [lives,setLives] = useState(3)
-  const [timer, setTimer] = useState(null
-    );
+  const [seconds, setSeconds] = useState(undefined);
+  const [isActive, setIsActive] = useState(false);
+  const [disabled,setDisabled] = useState([true,true,true,true])
 
-
-  const startGame = () => {
+  //🔒
+  const startGame  = () => {
     setShowResults(false)
-    setTimer(questionData[0][0].time)
+    setSeconds(questionData[0][0].time)
+    toggle()
   }
+
 
   const loadResult = (e) => {
-      setShowResults(true)
+    const five = (curStreak.streak.length+1) / 5 
+      setShowResults(true)     
       setQuestionIndex(questionIndex + 1)
-  
+      if(Number.isInteger(five) && curStreak.streak.length !==0){
+        setDisabled([   
+          disabled[(five)-1]=false
+          ,...disabled]
+          .slice(1))
+        setCurStreak({
+          streak: [...curStreak.streak],
+          powerups:[curStreak.powerups[(five)-1]
+          =curStreak.powerups[(five)-1]+1
+          ,...curStreak.powerups]
+          .slice(1)
+        })
+      }
       if(e.target.innerText === questionData[rankIndex][questionIndex].answer){
-        setCurStreak([...curStreak,curStreak.length]) 
+        setCurStreak({
+          streak:([...curStreak.streak,curStreak.streak.length]),
+          powerups: [...curStreak.powerups]
+        })
       }
       else{
-       setCurStreak([])
+       setCurStreak({
+       streak: [],
+       powerups: [...curStreak.powerups] 
+     })
+     if(lives-1 === 0){
+      setShowResults('endGame')
+    }
        setLives(lives -1)
+    
       }
+      
+
   }
-  console.log(curStreak)
+
   const nextQuestion = () =>{
   setShowResults(false)
- 
+  console.log(questionIndex === questionData[rankIndex].length)
   if(questionIndex === questionData[rankIndex].length) {
     setQuestionIndex(0)
-    setRankIndex(rankIndex + 1)
-    setTimer(questionData[rankIndex][0].time)
+    setRankIndex(rankIndex => rankIndex + 1)
+    setSeconds(questionData[rankIndex+1][0].time)
+   
   }else{
-    setTimer(questionData[rankIndex][questionIndex].time)
+    setSeconds(questionData[rankIndex][questionIndex].time)
+    setIsActive(true)
   }
   }
 
-  const id = useRef(null);
-  const clear = () => {
-     clearInterval(id.current);
-  };
   useEffect(() => {
-    id.current = setInterval(() => {
-      setTimer((time) => time - 1);
-    }, 1000);
-    return () => clear();
-  }, []);
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds(seconds => seconds - 1);
+      }, 1000);
+    } 
   
-  useEffect(() => {
-    if (timer === 0) {
-      setShowResults(true)
-      setQuestionIndex(prev => prev + 1)
-      setLives(lives =>lives - 1)
-      setCurStreak([])
-      clear()
+    return () => clearInterval(interval);
+  }, [isActive]);
+  useEffect(()=>{
+    if (seconds === 0) {
+    setLives(lives=>lives-1)
+    setIsActive(false)
+    setShowResults('false')
+    setQuestionIndex(a=> a + 1)
     }
-  }, [timer]);
+  },[seconds])
+ 
+  function toggle() {
+    setIsActive(!isActive);
+  }
+
+
   const active = colors[rankIndex]
   
   const Wrapper = styled.div`
@@ -96,7 +133,7 @@ function App() {
     <Wrapper>
       <Header >
           <Logo Active={active}/>
-      </Header>
+      </Header> 
       <StartMain>
         <Card Width={'100%'}>
           <Welcome >
@@ -105,8 +142,13 @@ function App() {
         </Card>
       </StartMain>
     </Wrapper>
-    : 
+    : (showResults === 'endGame') ?
     <Wrapper>
+      <Header >
+          <Logo Active={active}/>
+      </Header> 
+    </Wrapper>
+    :<Wrapper>
         <Header >
           <Logo Active={active}/>
         </Header>
@@ -118,7 +160,7 @@ function App() {
             Active={active} 
             questionIndex={questionIndex} 
             totalQuestions={questionData[rankIndex].length}
-            Timer={timer}/>}
+            Timer={seconds}/>}
             
             {!showResults &&
             <Question 
@@ -139,9 +181,9 @@ function App() {
 
       <Stats Active={active}>
         <Rank Active={active} RankKyu={8-rankIndex}/>
-        <Streak rect={curStreak} Active={active} />
+        <Streak rect={curStreak.streak} Active={active} />
         <Life Lives={lives} Active={active}/>
-        <Powerups Disabled={true} Active={active}/>
+        <Powerups Disabled={disabled} PowerupsCount={curStreak.powerups} Active={active}/>
       </Stats>
       </Main>
     </Wrapper>
