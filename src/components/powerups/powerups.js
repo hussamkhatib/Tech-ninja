@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {PowerupsHeading} from '../streakStyles'
 
 
-const Powerups = ({ Disabled,Active,PowerupsCount,halfEvent }) => {
+const Powerups = ({ Disabled,Active,PowerupsCount,halfEvent,freezeEvent }) => {
     const Button = styled.button`
     background:${Active};
     border:none;
@@ -29,7 +29,7 @@ const Powerups = ({ Disabled,Active,PowerupsCount,halfEvent }) => {
     `
 
     const buttonText = ['50/50','❄️','🚫','+1🖤']
-    const PowerupsList = [halfEvent,halfEvent,halfEvent,halfEvent]
+    const PowerupsList = [halfEvent,freezeEvent,halfEvent,halfEvent]
     return (
         <PowerupsContainer>
             <PowerupsHeading>Powerups</PowerupsHeading>

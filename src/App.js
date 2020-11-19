@@ -36,8 +36,10 @@ function App() {
   const [seconds, setSeconds] = useState(undefined);
   const [isActive, setIsActive] = useState(false);
   const [disabled,setDisabled] = useState([true,true,true,true])
+  //powerups  🔒
   const [half,setHalf] = useState(true)
-  //🔒
+  const [freeze,setFreeze] = useState(false)
+ 
   const startGame  = () => {
     setShowResults(false)
     setSeconds(questionData[0][0].time)
@@ -83,28 +85,41 @@ function App() {
 
   const nextQuestion = () =>{
     setHalf(true)
-  setShowResults(false)
+    setShowResults(false)
+    setIsActive(true)
   if(questionIndex === questionData[rankIndex].length) {
     setQuestionIndex(0)
     setRankIndex(rankIndex+1)
     setSeconds(questionData[rankIndex+1][0].time)
   }else{
     setSeconds(questionData[rankIndex][questionIndex].time)
-    setIsActive(true)
   }
   }
 
-  const halfEvent = (e) => {
+  const halfEvent = () => {
     setHalf(false)
     setCurStreak({
       streak: [...curStreak.streak],
       powerups: [curStreak.powerups[0]=curStreak.powerups[0]-1,...curStreak.powerups].slice(1)
     })
     if(curStreak.powerups[0] === 0){
-      setDisabled([true,true,true,true])
+      setDisabled([true,...disabled.slice(1)])
     }
   }
+  const freezeEvent = () =>{
+    setFreeze(true)
+    setIsActive(false)
+    setCurStreak({
+      streak: [...curStreak.streak],
+      powerups: [curStreak.powerups[1]=curStreak.powerups[1]-1,...curStreak.powerups].slice(1)
+    })
+    if(curStreak.powerups[1] === 0){
+      setDisabled([disabled[1]=true,...disabled].slice(1))
 
+    }
+  } 
+console.log(curStreak.powerups[1] === 0)
+console.log(disabled)
   useEffect(() => {
     let interval = null;
     if (isActive) {
@@ -139,7 +154,6 @@ function App() {
   color: ${active};
   `
   
-
 
   return (
     (showResults === 'startGame')? 
@@ -195,7 +209,8 @@ function App() {
         <Rank Active={active} RankKyu={8-rankIndex}/>
         <Streak rect={curStreak.streak} Active={active} />
         <Life Lives={lives} Active={active}/>
-        <Powerups Disabled={disabled} PowerupsCount={curStreak.powerups} halfEvent={halfEvent} Active={active}/>
+        <Powerups Disabled={disabled} PowerupsCount={curStreak.powerups} halfEvent={halfEvent} 
+        freezeEvent={freezeEvent} Active={active}/>
       </Stats>
       </Main>
     </Wrapper>
