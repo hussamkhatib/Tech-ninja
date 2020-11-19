@@ -39,7 +39,8 @@ function App() {
   //powerups  🔒
   const [half,setHalf] = useState(true)
   const [freeze,setFreeze] = useState(false)
- 
+  
+
   const startGame  = () => {
     setShowResults(false)
     setSeconds(questionData[0][0].time)
@@ -118,8 +119,18 @@ function App() {
 
     }
   } 
-console.log(curStreak.powerups[1] === 0)
-console.log(disabled)
+
+  const extraLiveEvent = () => {
+    setLives(lives +1)
+    setCurStreak({
+      streak: [...curStreak.streak],
+      powerups: [curStreak.powerups[3]=curStreak.powerups[3]-1,...curStreak.powerups].slice(1)
+    })
+    if(curStreak.powerups[3] === 0){
+      setDisabled([disabled[3]=true,...disabled].slice(1))
+    }
+  }
+
   useEffect(() => {
     let interval = null;
     if (isActive) {
@@ -210,7 +221,7 @@ console.log(disabled)
         <Streak rect={curStreak.streak} Active={active} />
         <Life Lives={lives} Active={active}/>
         <Powerups Disabled={disabled} PowerupsCount={curStreak.powerups} halfEvent={halfEvent} 
-        freezeEvent={freezeEvent} Active={active}/>
+        freezeEvent={freezeEvent} extraLiveEvent={extraLiveEvent} Active={active}/>
       </Stats>
       </Main>
     </Wrapper>
