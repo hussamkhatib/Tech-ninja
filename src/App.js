@@ -107,15 +107,26 @@ function App() {
       setDisabled([true,...disabled.slice(1)])
     }
   }
-  const freezeEvent = () =>{
-    setFreeze(true)
-    setIsActive(false)
+  const extraTimeEvent = () =>{
+    setSeconds(seconds+(questionData[rankIndex][questionIndex].time/2))
     setCurStreak({
       streak: [...curStreak.streak],
       powerups: [curStreak.powerups[1]=curStreak.powerups[1]-1,...curStreak.powerups].slice(1)
     })
     if(curStreak.powerups[1] === 0){
       setDisabled([disabled[1]=true,...disabled].slice(1))
+
+    }
+  } 
+  const freezeEvent = () =>{
+    setFreeze(true)
+    setIsActive(false)
+    setCurStreak({
+      streak: [...curStreak.streak],
+      powerups: [curStreak.powerups[2]=curStreak.powerups[2]-1,...curStreak.powerups].slice(1)
+    })
+    if(curStreak.powerups[2] === 0){
+      setDisabled([disabled[2]=true,...disabled].slice(1))
 
     }
   } 
@@ -221,7 +232,7 @@ function App() {
         <Streak rect={curStreak.streak} Active={active} />
         <Life Lives={lives} Active={active}/>
         <Powerups Disabled={disabled} PowerupsCount={curStreak.powerups} halfEvent={halfEvent} 
-        freezeEvent={freezeEvent} extraLiveEvent={extraLiveEvent} Active={active}/>
+        extraTimeEvent={extraTimeEvent} freezeEvent={freezeEvent} extraLiveEvent={extraLiveEvent} Active={active}/>
       </Stats>
       </Main>
     </Wrapper>
