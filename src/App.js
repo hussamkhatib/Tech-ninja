@@ -26,17 +26,17 @@ import Powerups from './components/powerups/powerups'
 function App() {
   
   const [questionIndex,setQuestionIndex] = useState(0);
+  const [rankIndex,setRankIndex] = useState(0);
   const [showResults,setShowResults] = useState('startGame');
   const [curStreak,setCurStreak] = useState({
     streak: [],
     powerups: [0,0,0,0]
   })
-  const [rankIndex,setRankIndex] = useState(0);
   const [lives,setLives] = useState(3)
   const [seconds, setSeconds] = useState(undefined);
   const [isActive, setIsActive] = useState(false);
   const [disabled,setDisabled] = useState([true,true,true,true])
-
+  const [half,setHalf] = useState(true)
   //🔒
   const startGame  = () => {
     setShowResults(false)
@@ -44,8 +44,8 @@ function App() {
     toggle()
   }
 
-
   const loadResult = (e) => {
+    toggle();
     const five = (curStreak.streak.length+1) / 5 
       setShowResults(true)     
       setQuestionIndex(questionIndex + 1)
@@ -79,22 +79,30 @@ function App() {
        setLives(lives -1)
     
       }
-      
-
   }
 
   const nextQuestion = () =>{
+    setHalf(true)
   setShowResults(false)
-  console.log(questionIndex === questionData[rankIndex].length)
   if(questionIndex === questionData[rankIndex].length) {
     setQuestionIndex(0)
-    setRankIndex(rankIndex => rankIndex + 1)
+    setRankIndex(rankIndex+1)
     setSeconds(questionData[rankIndex+1][0].time)
-   
   }else{
     setSeconds(questionData[rankIndex][questionIndex].time)
     setIsActive(true)
   }
+  }
+
+  const halfEvent = (e) => {
+    setHalf(false)
+    setCurStreak({
+      streak: [...curStreak.streak],
+      powerups: [curStreak.powerups[0]=curStreak.powerups[0]-1,...curStreak.powerups].slice(1)
+    })
+    if(curStreak.powerups[0] === 0){
+      setDisabled([true,true,true,true])
+    }
   }
 
   useEffect(() => {
@@ -113,19 +121,24 @@ function App() {
     setIsActive(false)
     setShowResults('false')
     setQuestionIndex(a=> a + 1)
-    }
-  },[seconds])
+  }
  
+  },[seconds])
+ useEffect(()=>{
+  if(lives  === 0){
+    setShowResults('endGame')
+  } 
+ },[lives])
   function toggle() {
     setIsActive(!isActive);
   }
-
 
   const active = colors[rankIndex]
   
   const Wrapper = styled.div`
   color: ${active};
   `
+  
 
 
   return (
@@ -169,11 +182,10 @@ function App() {
             questionIndex ={questionIndex}/>} 
             
             {!showResults ? <Options 
-            Option={questionData} 
-            rankIndex={rankIndex} 
-            questionIndex={questionIndex} 
+            Option={questionData[rankIndex][questionIndex]} 
             loadResult={loadResult} 
-            Active={active}/>
+            Active={active}
+            showAll={half} />
             :
             <Button nextQuestion={nextQuestion} Active={active} />}
 
@@ -183,7 +195,7 @@ function App() {
         <Rank Active={active} RankKyu={8-rankIndex}/>
         <Streak rect={curStreak.streak} Active={active} />
         <Life Lives={lives} Active={active}/>
-        <Powerups Disabled={disabled} PowerupsCount={curStreak.powerups} Active={active}/>
+        <Powerups Disabled={disabled} PowerupsCount={curStreak.powerups} halfEvent={halfEvent} Active={active}/>
       </Stats>
       </Main>
     </Wrapper>

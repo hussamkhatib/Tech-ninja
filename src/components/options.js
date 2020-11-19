@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Options = ({ Option,rankIndex,questionIndex,loadResult,Active }) => {
+const Options = ({ Option,showAll,loadResult,Active }) => {
     const Grid = styled.div`
     display:grid;
     grid-template-columns: 1fr 1fr;
@@ -19,16 +19,25 @@ const Options = ({ Option,rankIndex,questionIndex,loadResult,Active }) => {
       color: #282C34;
     }
     `
-    
-    const allChoices = [Option[rankIndex][questionIndex].answer,...Option[rankIndex][questionIndex].wrong]
+    const correct = Option.answer
+    const wrong =   Option.wrong
+    const allChoices = [correct,...wrong]
                        // .sort(() => Math.random() - .5)
-                        
+    const randomWrongChoices = [...wrong]
+                              .sort(()=>Math.random()- .5)
+
     return (
         <Grid>   
-          {allChoices.map(item => (
+          {showAll ?
+          allChoices.map(item => (
              <Options key={item} onClick={loadResult}>{item}</Options> 
-          )
-          )}
+          ))
+        :
+        [correct,randomWrongChoices[0]].map(item =>(
+          <Options key={item} onClick={loadResult}>{item}</Options> 
+       ))
+       }     
+        
         </Grid>
     )
 }
