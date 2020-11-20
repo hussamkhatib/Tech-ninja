@@ -20,9 +20,9 @@ const Welcome = ( {startGame}) => {
         <Desc>you'll have to choose the output of code snippet given in the time limit.</Desc>
         <Button>
             Rules
-           Start
         </Button>
         <Button onClick={startGame}>
+           Start
        </Button>
         </Wrapper>
     )

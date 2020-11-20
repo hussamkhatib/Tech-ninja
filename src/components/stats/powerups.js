@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {PowerupsHeading} from '../streakStyles'
+import {PowerupsHeading} from './streakStyles'
 
 
 const Powerups = ({ Disabled,Active,PowerupsCount,halfEvent,extraTimeEvent,freezeEvent,extraLiveEvent }) => {

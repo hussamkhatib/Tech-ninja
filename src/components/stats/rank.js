@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { RankHeading } from '../streakStyles'
+import { RankHeading } from './streakStyles'
 
 const Rank = ({ RankKyu,Active }) => {
     const RankDisplay = styled.p`

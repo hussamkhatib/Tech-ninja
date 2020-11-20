@@ -1,25 +1,29 @@
 import React, { useState,useEffect } from 'react'
 
 import styled from 'styled-components'
-import  Card from './components/card'
-import questionData from './components/questiondata'
-import Question from './components/question'
-import Options from './components/options'
-import Button from './components/button'
-import CardHeader from './components/cardHeader'
 
-import Welcome from './components/welcome.js/welcome'
+
+import EndGame from './components/startEnd/endGame'
+import Welcome from './components/startEnd/welcome'
+
+import Card from './components/questionCard/card'
+import questionData from './components/data'
+import Question from './components/questionCard/question'
+import Options from './components/questionCard/options'
+import Results from './components/results'
+import CardHeader from './components/questionCard/cardHeader'
 
 import './AppStyles.js';
-import Header from './components/header';
-import Logo from './components/logo'
-import { StartMain,Main,colors } from './AppStyles'
+import Header from './components/header/header';
+import Logo from './components/header/logo'
+import { StartMain,ResultsMain,Main,colors } from './AppStyles'
 
-import Streak from './components/streak'
-import Stats from './components/stats'
-import Rank from './components/rank/rank'
-import Life from './components/life/life'
-import Powerups from './components/powerups/powerups'
+import Streak from './components/stats/streak'
+import Stats from './components/stats/stats'
+import Rank from './components/stats/rank'
+import Life from './components/stats/life'
+import Powerups from './components/stats/powerups'
+
 
 
 function App() {
@@ -31,6 +35,8 @@ function App() {
     streak: [],
     powerups: [0,0,0,0]
   })
+  const [correct,setCorrect] = useState([undefined,undefined]);
+
   const [lives,setLives] = useState(3)
   const [seconds, setSeconds] = useState(undefined);
   const [isActive, setIsActive] = useState(false);
@@ -38,7 +44,7 @@ function App() {
   //powerups  🔒
   const [half,setHalf] = useState(true)
   const [freeze,setFreeze] = useState(false)
-  
+  const [promoted,setPromoted] = useState([false])
 
   const startGame  = () => {
     setShowResults(false)
@@ -48,10 +54,13 @@ function App() {
 
   const loadResult = (e) => {
     toggle();
+    if(questionIndex === 4) {
+      setPromoted([true,7 -rankIndex])
+    }
     const five = (curStreak.streak.length+1) / 5 
       setShowResults(true)     
       setQuestionIndex(questionIndex + 1)
-   
+      console.log(questionIndex,rankIndex)
       if(Number.isInteger(five) && curStreak.streak.length !==0){
         setDisabled([   
           disabled[(five)-1]=false
@@ -69,12 +78,14 @@ function App() {
         })
       }
       if(e.target.innerText === questionData[rankIndex][questionIndex].answer){
+        setCorrect([true,e.target.innerText])
         setCurStreak({
           streak:([...curStreak.streak,curStreak.streak.length]),
           powerups: [...curStreak.powerups]
         })
       }
       else{
+       setCorrect([false,e.target.innerText,questionData[rankIndex][questionIndex].answer])
        setCurStreak({
        streak: [],
        powerups: [...curStreak.powerups] 
@@ -88,12 +99,12 @@ function App() {
   }
  
   const nextQuestion = () =>{
+    setPromoted([false])
     setHalf(true)
     setShowResults(false)
     setIsActive(true)
     const setBtn = curStreak.powerups.map(item=> item === 0? true:false)
     setDisabled(setBtn)
-    console.log(rankIndex,questionIndex)
   if(rankIndex === questionData.length-1 && questionIndex === questionData[questionData.length-1].length){
     setShowResults('endGame')
   }
@@ -197,46 +208,53 @@ function App() {
       <Header>
           <Logo Active={active}/>
       </Header> 
-      
+      <StartMain> 
+      <EndGame Rank={8-rankIndex}/>
+      </StartMain>
     </Wrapper>
 
-    :<Wrapper>
-        <Header >
-          <Logo Active={active}/>
-        </Header>
-        <Main>
-          <Card Active={active} >
+    :(showResults === false) ?
+    <Wrapper>
+      <Header>
+        <Logo Active={active}/>
+      </Header>
+      <Main>
+        <Card Active={active} >
         
-            {!showResults && 
-            <CardHeader 
-            Active={active} 
-            questionIndex={questionIndex} 
-            totalQuestions={questionData[rankIndex].length}
-            Timer={seconds}/>}
+          <CardHeader 
+          Active={active} 
+          questionIndex={questionIndex} 
+          totalQuestions={questionData[rankIndex].length}
+          Timer={seconds}/>
             
-            {!showResults &&
-            <Question 
-            Question={questionData} 
-            rankIndex={rankIndex} 
-            questionIndex ={questionIndex}/>} 
+          <Question 
+          Question={questionData} 
+          rankIndex={rankIndex} 
+          questionIndex ={questionIndex}/>
             
-            {!showResults ? <Options 
-            Option={questionData[rankIndex][questionIndex]} 
-            loadResult={loadResult} 
-            Active={active}
-            showAll={half} />
-            :
-            <Button nextQuestion={nextQuestion} Active={active} />}
-      </Card>
-
-      <Stats Active={active}>
-        <Rank Active={active} RankKyu={8-rankIndex}/>
-        <Streak rect={curStreak.streak} Active={active} />
-        <Life Lives={lives} Active={active}/>
-        <Powerups Disabled={disabled} PowerupsCount={curStreak.powerups} halfEvent={halfEvent} 
-        extraTimeEvent={extraTimeEvent} freezeEvent={freezeEvent} extraLiveEvent={extraLiveEvent} Active={active}/>
-      </Stats>
+          <Options 
+          Option={questionData[rankIndex][questionIndex]} 
+          loadResult={loadResult} 
+          Active={active}
+          showAll={half}/>
+        </Card>
+        <Stats Active={active}>
+          <Rank Active={active} RankKyu={8-rankIndex}/>
+          <Streak rect={curStreak.streak} Active={active} />
+          <Life Lives={lives} Active={active}/>
+          <Powerups Disabled={disabled} PowerupsCount={curStreak.powerups} halfEvent={halfEvent} 
+          extraTimeEvent={extraTimeEvent} freezeEvent={freezeEvent} extraLiveEvent={extraLiveEvent} Active={active}/>
+        </Stats>
       </Main>
+    </Wrapper>
+            :
+    <Wrapper>
+      <Header >
+        <Logo Active={active}/>
+      </Header>
+      <ResultsMain>
+        <Results nextQuestion={nextQuestion} Active={active} Correct={correct} Promoted={promoted}/>
+      </ResultsMain>  
     </Wrapper>
   );
 }

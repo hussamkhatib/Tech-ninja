@@ -19,3 +19,8 @@ svg{
 *{
   margin: 0;
 }
+button:hover{
+  cursor: pointer;
+  opacity:0.85;
+  transition: opacity .15s ease-in;
+}

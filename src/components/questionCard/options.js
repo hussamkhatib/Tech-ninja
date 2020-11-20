@@ -19,6 +19,7 @@ const Options = ({ Option,showAll,loadResult,Active }) => {
       color: #262729;
     }
     `
+  
     const correct = Option.answer
     const wrong =   Option.wrong
     const allChoices = [correct,...wrong]
