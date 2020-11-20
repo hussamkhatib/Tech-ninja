@@ -5,7 +5,7 @@ import styled from 'styled-components'
 const CardHeader = ({ questionIndex,totalQuestions,Active,Timer }) => {
 const CardHeaderWrapper = styled.div`
 background: ${Active};
-color:#282c34;
+color: #262729;
 `
 const QuestionNO = styled.div`
 display:inline-block;

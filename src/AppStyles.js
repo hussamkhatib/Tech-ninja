@@ -18,4 +18,4 @@ export const StartMain = styled(Main)`
 }
 `
 
-export const colors = ['#e6e6e6','#61DAFB','#ECB613','#866CC7','#3C7EBB','orangered','hotpink','brown']
+export const colors = ['#e6e6e6','#ECB613','#3C7EBB','#866CC7']

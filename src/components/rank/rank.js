@@ -5,7 +5,7 @@ import { RankHeading } from '../streakStyles'
 const Rank = ({ RankKyu,Active }) => {
     const RankDisplay = styled.p`
     background: ${Active};
-    color: #282c34; 
+    color: #262729; 
     padding: .4em 0.6em;
     border-radius: 20px;
     text-align: center;

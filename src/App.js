@@ -9,7 +9,6 @@ import Button from './components/button'
 import CardHeader from './components/cardHeader'
 
 import Welcome from './components/welcome.js/welcome'
-import StartButton from './components/welcome.js/startButton'
 
 import './AppStyles.js';
 import Header from './components/header';
@@ -52,6 +51,7 @@ function App() {
     const five = (curStreak.streak.length+1) / 5 
       setShowResults(true)     
       setQuestionIndex(questionIndex + 1)
+   
       if(Number.isInteger(five) && curStreak.streak.length !==0){
         setDisabled([   
           disabled[(five)-1]=false
@@ -59,7 +59,10 @@ function App() {
           .slice(1))
         setCurStreak({
           streak: [...curStreak.streak],
-          powerups:[curStreak.powerups[(five)-1]
+          powerups: five > 4 ?
+           [curStreak.powerups[five-5]=curStreak.powerups[five-5]+2,...curStreak.powerups].slice(1)
+          :
+          [curStreak.powerups[(five)-1]
           =curStreak.powerups[(five)-1]+1
           ,...curStreak.powerups]
           .slice(1)
@@ -83,12 +86,18 @@ function App() {
     
       }
   }
-
+ 
   const nextQuestion = () =>{
     setHalf(true)
     setShowResults(false)
     setIsActive(true)
-  if(questionIndex === questionData[rankIndex].length) {
+    const setBtn = curStreak.powerups.map(item=> item === 0? true:false)
+    setDisabled(setBtn)
+    console.log(rankIndex,questionIndex)
+  if(rankIndex === questionData.length-1 && questionIndex === questionData[questionData.length-1].length){
+    setShowResults('endGame')
+  }
+  else if(questionIndex === questionData[rankIndex].length) {
     setQuestionIndex(0)
     setRankIndex(rankIndex+1)
     setSeconds(questionData[rankIndex+1][0].time)
@@ -103,9 +112,8 @@ function App() {
       streak: [...curStreak.streak],
       powerups: [curStreak.powerups[0]=curStreak.powerups[0]-1,...curStreak.powerups].slice(1)
     })
-    if(curStreak.powerups[0] === 0){
-      setDisabled([true,...disabled.slice(1)])
-    }
+    setDisabled([true,...disabled.slice(1)])
+  
   }
   const extraTimeEvent = () =>{
     setSeconds(seconds+(questionData[rankIndex][questionIndex].time/2))
@@ -113,10 +121,7 @@ function App() {
       streak: [...curStreak.streak],
       powerups: [curStreak.powerups[1]=curStreak.powerups[1]-1,...curStreak.powerups].slice(1)
     })
-    if(curStreak.powerups[1] === 0){
       setDisabled([disabled[1]=true,...disabled].slice(1))
-
-    }
   } 
   const freezeEvent = () =>{
     setFreeze(true)
@@ -127,7 +132,6 @@ function App() {
     })
     if(curStreak.powerups[2] === 0){
       setDisabled([disabled[2]=true,...disabled].slice(1))
-
     }
   } 
 
@@ -169,8 +173,9 @@ function App() {
   function toggle() {
     setIsActive(!isActive);
   }
-
-  const active = colors[rankIndex]
+  
+  const active = colors[Math.ceil((rankIndex+1)/2) - 1]
+  //colors[rankIndex+1]
   
   const Wrapper = styled.div`
   color: ${active};
@@ -180,23 +185,21 @@ function App() {
   return (
     (showResults === 'startGame')? 
     <Wrapper>
-      <Header >
+      <Header>
           <Logo Active={active}/>
       </Header> 
-      <StartMain>
-        <Card Width={'100%'}>
-          <Welcome >
-            <StartButton startGame={startGame} />
-          </Welcome>
-        </Card>
+      <StartMain> 
+          <Welcome startGame={startGame} />
       </StartMain>
     </Wrapper>
     : (showResults === 'endGame') ?
     <Wrapper>
-      <Header >
+      <Header>
           <Logo Active={active}/>
       </Header> 
+      
     </Wrapper>
+
     :<Wrapper>
         <Header >
           <Logo Active={active}/>
@@ -224,7 +227,6 @@ function App() {
             showAll={half} />
             :
             <Button nextQuestion={nextQuestion} Active={active} />}
-
       </Card>
 
       <Stats Active={active}>

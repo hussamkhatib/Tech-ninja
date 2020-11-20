@@ -16,7 +16,7 @@ const Options = ({ Option,showAll,loadResult,Active }) => {
     border: 2px solid ${Active};
     &:hover {
       background: ${Active};
-      color: #282C34;
+      color: #262729;
     }
     `
     const correct = Option.answer
