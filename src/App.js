@@ -2,7 +2,6 @@ import React, { useState,useEffect } from 'react'
 
 import styled from 'styled-components'
 
-
 import EndGame from './components/startEnd/endGame'
 import Welcome from './components/startEnd/welcome'
 
@@ -24,8 +23,6 @@ import Rank from './components/stats/rank'
 import Life from './components/stats/life'
 import Powerups from './components/stats/powerups'
 
-
-
 function App() {
   
   const [questionIndex,setQuestionIndex] = useState(0);
@@ -45,11 +42,13 @@ function App() {
   const [half,setHalf] = useState(true)
   const [freeze,setFreeze] = useState(false)
   const [promoted,setPromoted] = useState([false])
+  const [random,setRandom] = useState(null)
 
   const startGame  = () => {
     setShowResults(false)
     setSeconds(questionData[0][0].time)
     toggle()
+    shuffleCards()
   }
 
   const loadResult = (e) => {
@@ -60,7 +59,7 @@ function App() {
     const five = (curStreak.streak.length+1) / 5 
       setShowResults(true)     
       setQuestionIndex(questionIndex + 1)
-      console.log(questionIndex,rankIndex)
+ 
       if(Number.isInteger(five) && curStreak.streak.length !==0){
         setDisabled([   
           disabled[(five)-1]=false
@@ -97,7 +96,7 @@ function App() {
     
       }
   }
- 
+
   const nextQuestion = () =>{
     setPromoted([false])
     setHalf(true)
@@ -105,6 +104,7 @@ function App() {
     setIsActive(true)
     const setBtn = curStreak.powerups.map(item=> item === 0? true:false)
     setDisabled(setBtn)
+  
   if(rankIndex === questionData.length-1 && questionIndex === questionData[questionData.length-1].length){
     setShowResults('endGame')
   }
@@ -112,9 +112,13 @@ function App() {
     setQuestionIndex(0)
     setRankIndex(rankIndex+1)
     setSeconds(questionData[rankIndex+1][0].time)
+    shuffleCards(0,1)
+  
   }else{
     setSeconds(questionData[rankIndex][questionIndex].time)
+    shuffleCards()
   }
+  
   }
 
   const halfEvent = () => {
@@ -125,7 +129,7 @@ function App() {
     })
     setDisabled([true,...disabled.slice(1)])
   
-  }
+  } 
   const extraTimeEvent = () =>{
     setSeconds(seconds+(questionData[rankIndex][questionIndex].time/2))
     setCurStreak({
@@ -158,33 +162,29 @@ function App() {
   }
 
   useEffect(() => {
-    let interval = null;
     if (isActive) {
-      interval = setInterval(() => {
+     const interval = setTimeout(() => {
         setSeconds(seconds => seconds - 1);
-      }, 1000);
-    } 
-  
+      }, 1000); 
+      if (seconds === 0) {
+        setLives(lives=>lives-1)
+        setIsActive(false)
+        setShowResults('false')
+        setQuestionIndex(a=> a + 1)
+      }
+      if(lives  === 0){
+        setShowResults('endGame')
+      } 
     return () => clearInterval(interval);
-  }, [isActive]);
-  useEffect(()=>{
-    if (seconds === 0) {
-    setLives(lives=>lives-1)
-    setIsActive(false)
-    setShowResults('false')
-    setQuestionIndex(a=> a + 1)
-  }
- 
-  },[seconds])
- useEffect(()=>{
-  if(lives  === 0){
-    setShowResults('endGame')
-  } 
- },[lives])
+  }}, [isActive,seconds,lives]);
+  
   function toggle() {
     setIsActive(!isActive);
   }
+  function shuffleCards(questionNo=questionIndex,add=0){
+    setRandom([questionData[rankIndex+add][questionNo].answer,...questionData[rankIndex+add][questionNo].wrong].sort(()=> Math.random() -.5 ))
   
+  }
   const active = colors[Math.ceil((rankIndex+1)/2) - 1]
   //colors[rankIndex+1]
   
@@ -236,6 +236,7 @@ function App() {
           Option={questionData[rankIndex][questionIndex]} 
           loadResult={loadResult} 
           Active={active}
+          Random={random}
           showAll={half}/>
         </Card>
         <Stats Active={active}>
