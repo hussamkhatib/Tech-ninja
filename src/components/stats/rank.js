@@ -11,6 +11,8 @@ const Rank = ({ RankKyu,Active }) => {
     text-align: center;
     font-size:0.8em;`
 
+ 
+
     const Wrapper = styled.div`
     display: flex;
     padding:0.2em;

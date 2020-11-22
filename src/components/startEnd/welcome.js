@@ -1,9 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Welcome = ( {startGame}) => {
+
+
+const Welcome = ( {children,Visible,startGame,Rules}) => {
     const Wrapper = styled.div`
-    text-align: center;`
+    text-align: center;
+    display:${Visible};
+    `
     const Heading =styled.h2`
     padding:.8em;
     font-size:3em;`
@@ -15,16 +19,20 @@ const Welcome = ( {startGame}) => {
     margin:0 .2em;
     `
     return (
+        <>
         <Wrapper>   
         <Heading>A JavaScript Quiz</Heading>
         <Desc>you'll have to choose the output of code snippet given in the time limit.</Desc>
-        <Button>
+        <Button onClick={Rules}>
             Rules
         </Button>
         <Button onClick={startGame}>
            Start
        </Button>
+       
         </Wrapper>
+         {children}
+         </>
     )
 }
 

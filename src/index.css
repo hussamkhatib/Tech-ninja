@@ -25,3 +25,6 @@ button:hover{
   opacity:0.85;
   transition: opacity .15s ease-in;
 }
+a{
+  color: #e6e6e6;
+}

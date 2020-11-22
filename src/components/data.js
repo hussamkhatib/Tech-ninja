@@ -2,7 +2,8 @@ const questionData = [
     [   
         {
             question: 
-`const shape = {
+`
+<pre>const shape = {
 radius: 10,
 diameter() {
  return this.radius * 2;
@@ -11,92 +12,101 @@ perimeter: () => 2 * Math.PI * this.radius,
 };
 
 console.log(shape.diameter());
-console.log(shape.perimeter());
+console.log(shape.perimeter());</pre>
 `,
-            answer: "<code>20</code> and <code>NaN</code>",
-            wrong:  ['<code>NaN</code> and <code>63</code>','<code>20</code> and <code>63</code>','<code>20</code> and <code>62.83185307179586</code>'],
+            answer: "20 and NaN",
+            wrong:  ['NaN and 63','20 and 63','20 and 62.83185307179586'],
             time: 60
         },{
-                question: `let number = 0;
-                console.log(number++);
-                console.log(++number);
-                console.log(number);`,
+                question: 
+`
+<pre>let number = 0;
+console.log(number++);
+console.log(++number);
+console.log(number);</pre>`,
                 answer: "0 2 2",
                 wrong:  ['1 1 2','1 2 2','0 1 2'],
                 time: 50
         },{
-                question: `const foo = () => console.log('First');
-                const bar = () => setTimeout(() => console.log('Second'));
-                const baz = () => console.log('Third');
+                question: `
+<pre>const foo = () => console.log('First');
+const bar = () => setTimeout(() => console.log('Second'));
+const baz = () => console.log('Third');
                 
-                bar();
-                foo();
-                baz();`,
+bar();
+foo();
+baz();</pre>`,
                 answer: "First Third Second",
                 wrong:  ['First Second Third','Second Third First','Second First Third'],
                 time: 40
         },{
-                question: `console.log(eval('10*10+5'));`,
+                question: `<pre>console.log(eval('10*10+5'));</pre>`,
                 answer: "105",
                 wrong:  ['TypeError','"10*10+5"','"105"'],
                 time: 30
         },{
-                question: `function getAge() {
-                        'use strict';
-                        age = 21;
-                        console.log(age);
-                      }
-                      
-                      getAge();`,
+                question: `
+<pre>function getAge() {
+'use strict';
+age = 21;
+console.log(age);
+}
+
+getAge()</pre>;`,
                 answer: "ReferenceError",
                 wrong:  ['21','undefined','TypeError'],
                 time: 20
         }
     ],[
         {
-            question: `function sayHi() {
-                console.log(name);
-                console.log(age);
-                var name = 'Lydia';
-                let age = 21;
-              }
-              
-              sayHi();`,
+            question: `
+<pre>function sayHi() {
+console.log(name);
+console.log(age);
+var name = 'Lydia';
+let age = 21;
+}
+
+sayHi();</pre>`,
             answer: "undefined and ReferenceError",
             wrong: ['Lydia and undefined','Lydia and ReferenceError','ReferenceError and 21'],
             time: 30,
         },{
-                question: `let person = { name: 'Lydia' };
-                const members = [person];
-                person = null;
-                
-                console.log(members);`,
+                question: `
+<pre>let person = { name: 'Lydia' };
+const members = [person];
+person = null;
+
+console.log(members);</pre>`,
                 answer: '[{ name: "Lydia" }]',
                 wrong:  ['[{}]','null','[null]'],
                 time: 60
         },{
-                question: `let c = { greeting: 'Hey!' };
-                let d;
-                
-                d = c;
-                c.greeting = 'Hello';
-                console.log(d.greeting);`,
+                question: `let c =
+<pre>{ greeting: 'Hey!' };
+let d;
+
+d = c;
+c.greeting = 'Hello';
+console.log(d.greeting);</pre>`,
                 answer: "Hello",
                 wrong:  ['undefined','TypeError','ReferenceError'],
                 time: 50
         },{
-                question: `for (let i = 1; i < 5; i++) {
-                        if (i === 3) continue;
-                        console.log(i);
-                      }`,
+                question: `
+<pre>for (let i = 1; i < 5; i++) {
+        if (i === 3) continue;
+        console.log(i);
+        }</pre>`,
                 answer: "1 2 4",
                 wrong:  ['1 2','1 2 3','1 3 4'],
                 time: 40
         },{
-                question: `var num = 8;
-                var num = 10;
-                
-                console.log(num);`,
+                question: `
+<pre>var num = 8;
+var num = 10;
+
+console.log(num);</pre>`,
                 answer: "10",
                 wrong:  ['8','SyntaxError','ReferenceError'],
                 time:30, 
@@ -104,34 +114,37 @@ console.log(shape.perimeter());
     ],[
         {
             question: 
-`for (var i = 0; i < 3; i++) {
+`<pre>for (var i = 0; i < 3; i++) {
 setTimeout(() => console.log(i), 1);
 }
         
 for (let i = 0; i < 3; i++) {
 setTimeout(() => console.log(i), 1);
-}`,
+}</pre>`,
             answer: '3 3 3 and 0 1 2',
             wrong:  ['0 1 2 and 0 1 2','0 1 2 and 3 3 3'],
             time: 70,
         },{
-                question: "console.log(typeof typeof 1);",
+                question: "<pre>console.log(typeof typeof 1);</pre>",
                 answer: '"string"',
                 wrong:  ['"undefined"','"object"','"number"'],
                 time: 60,
         },{
-                question: `  +true;
-                !'Lydia'; `,
-                answer: "<code>1</code> and <code>false</code>",
-                wrong:  ['<code>false</code> and <code>false</code>','<code>false</code> and <code>NaN</code>'],
+                question: 
+`<pre> +true;
+!'Lydia'; `,
+                answer: "<pre>1 and false</pre>",
+                wrong:  ['false and false','false and NaN'],
                 time: 50,
         },{
-                question: "console.log(3 + 4 + '5');",
+                question: "<pre>console.log(3 + 4 + '5');</pre>",
                 answer: '"75',
                 wrong:  ['"345"','"12"','12'],
                 time: 40,
         },{
-                question: 'The JavaScript global execution context creates two things for you: the global object, and the "this" keyword.',
+                question: 
+`<pre>The JavaScript global execution context creates 
+two things for you: the global object, and the "this" keyword.`,
                 answer: "true",
                 wrong:  ['false','it depends'],
                 time: 30,
@@ -326,19 +339,10 @@ setTimeout(() => console.log(i), 1);
             wrong:  ['"one"','"two" "one"','"one" "two"'],
             time: 70,
         },{
-                question: `function Person(firstName, lastName) {
-                        this.firstName = firstName;
-                        this.lastName = lastName;
-                      }
-                      
-                      const member = new Person('Lydia', 'Hallie');
-                      Person.getFullName = function() {
-                        return '${this.firstName} ${this.lastName}'
-                      };
-                      
-                      console.log(member.getFullName());`,
-                answer: "TypeError",
-                wrong:  ['undefined and undefined','Lydia Hallie','SyntaxError'],
+                question: `const { name: myName } = { name: 'Lydia' };
+                      console.log(name)`,
+                answer: "ReferenceError",
+                wrong:  ['"myName','"Lydia"','undefined'],
                 time: 60,
         },{
                 question: `[[0, 1], [2, 3]].reduce(

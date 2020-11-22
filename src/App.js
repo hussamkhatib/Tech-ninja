@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import EndGame from './components/startEnd/endGame'
 import Welcome from './components/startEnd/welcome'
+import Rules from './components/startEnd/rules'
 
 import Card from './components/questionCard/card'
 import questionData from './components/data'
@@ -28,6 +29,7 @@ function App() {
   const [questionIndex,setQuestionIndex] = useState(0);
   const [rankIndex,setRankIndex] = useState(0);
   const [showResults,setShowResults] = useState('startGame');
+  const [visible,SetVisible] = useState(['none','block'])
   const [curStreak,setCurStreak] = useState({
     streak: [],
     powerups: [0,0,0,0]
@@ -51,6 +53,10 @@ function App() {
     shuffleCards()
   }
 
+  const rules = () => {
+    SetVisible(['block','none'])
+  }
+ 
   const loadResult = (e) => {
     toggle();
     if(questionIndex === 4) {
@@ -192,7 +198,7 @@ function App() {
   color: ${active};
   `
   
-
+console.log(visible)
   return (
     (showResults === 'startGame')? 
     <Wrapper>
@@ -200,7 +206,9 @@ function App() {
           <Logo Active={active}/>
       </Header> 
       <StartMain> 
-          <Welcome startGame={startGame} />
+          <Welcome startGame={startGame} Rules={rules} Visible={visible[1]}>
+            <Rules Visible={visible[0]} startGame={startGame}/>
+          </Welcome>
       </StartMain>
     </Wrapper>
     : (showResults === 'endGame') ?

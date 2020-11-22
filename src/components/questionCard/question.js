@@ -4,7 +4,6 @@ import styled from 'styled-components'
 const Question = ({ Question,rankIndex,questionIndex }) => {
   const QuestionWrapper = styled.div`
   padding: 1em;
-  text-align: center;
   min-height:30vh;
   display:flex;
  `
