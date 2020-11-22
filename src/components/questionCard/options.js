@@ -31,14 +31,13 @@ const Options = ({ Option,showAll,loadResult,Active,Random }) => {
         <Grid>   
           {showAll ?
           Random.map(item => (
-             <Options key={item} onClick={loadResult}>{item}</Options> 
+             <Options key={item} onClick={loadResult} dangerouslySetInnerHTML={{__html: item}}/>
           ))
         :
         [correct,randomWrongChoices[0]].map(item =>(
-          <Options key={item} onClick={loadResult}>{item}</Options> 
+          <Options key={item} onClick={loadResult} dangerouslySetInnerHTML={{__html: item}} />
        ))
        }     
-        
         </Grid>
     )
 }

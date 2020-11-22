@@ -7,14 +7,14 @@ const Question = ({ Question,rankIndex,questionIndex }) => {
   text-align: center;
   min-height:30vh;
   display:flex;
-  justify-content:center;
-  align-items:center;`
-   
+ `
+
+
 const QuestionH = styled.h2`
-`;
+font-size:.8em;`;
   return (
         <QuestionWrapper>
-            <QuestionH>{Question[rankIndex][questionIndex].question}</QuestionH>
+          <QuestionH dangerouslySetInnerHTML={{__html: Question[rankIndex][questionIndex].question}} />
         </QuestionWrapper>    
     )
 }
