@@ -22,7 +22,6 @@ const Options = ({ Option,showAll,loadResult,Active,Random }) => {
   
     const correct = Option.answer
     const wrong =   Option.wrong
-    const allChoices = [correct,...wrong]
                        
     const randomWrongChoices = [...wrong]
                            

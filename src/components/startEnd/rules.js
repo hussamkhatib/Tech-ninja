@@ -44,7 +44,7 @@ const Rules = ({ Visible,startGame,Color }) => {
            you'll have to choose the output of code snippet given in the time limit.
            </RuleDesc>
            <Rule>Ranks</Rule>
-                <RuleDesc>Each question is set to a Kyu rank, based on difficulty.This system is borrowed from <a target="_blank" href="https://www.codewars.com">codewars</a></RuleDesc>
+                <RuleDesc>Each question is set to a Kyu rank, based on difficulty.This system is borrowed from <a target="_blank" href="https://www.codewars.com"  rel="noreferrer">codewars</a></RuleDesc>
             <GridContainer Rank>
                 <GridChild>
                 Begineer

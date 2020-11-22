@@ -45,7 +45,8 @@ function App() {
   const [freeze,setFreeze] = useState(false)
   const [promoted,setPromoted] = useState([false])
   const [random,setRandom] = useState(null)
-
+  console.log(freeze)
+  
   const startGame  = () => {
     setShowResults(false)
     setSeconds(questionData[0][0].time)
