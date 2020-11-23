@@ -8,10 +8,13 @@ const Rules = ({ Visible,startGame,Color }) => {
     `
     const GridContainer =  styled.ul`
     display: grid;
-    grid-template-columns:${props =>props.Rank ? 'repeat(4,150px)' : '1fr 1fr'  } ;`
+    grid-template-columns:${props =>props.Rank ? 'repeat(auto-fill, minmax(70px, 1fr))' : '1fr 1fr'  } ;
+    padding:0.4em 0;
+    gap:1em;`
     const GridChild = styled.li`
     list-style:none;
-    padding:0.4em;`
+    padding:0.4em;
+    font-size:0.7em;`
     const RankDisplay = styled.p`
     background: ${props=> props.Begineer? "#e6e6e6":props.Novice ? '#ECB613' :props.Competent? '#3C7EBB':'#866CC7'};
     color: #262729; 
@@ -24,7 +27,7 @@ const Rules = ({ Visible,startGame,Color }) => {
     const Span = styled.span`
     background:#303133;`
     const Rule = styled.h4`
-    0.4em 0;`
+    padding: 0.4em 0;`
     const RuleDesc = styled.p`
     font-size:.8em;
     padding: 0.2em 0;`
@@ -36,10 +39,11 @@ const Rules = ({ Visible,startGame,Color }) => {
     `
     const ButtonWrapper = styled.div`
     display:flex;
-    justify-content:center;`
+    justify-content:center;
+    padding: 0.4em 0;`
     return (
         <Wrapper>
-            <Rule>Rule</Rule>
+            <Rule>Rules</Rule>
            <RuleDesc>
            you'll have to choose the output of code snippet given in the time limit.
            </RuleDesc>

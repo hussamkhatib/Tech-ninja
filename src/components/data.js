@@ -8,9 +8,9 @@ radius: 10,
 diameter() {
  return this.radius * 2;
 },
-perimeter: () => 2 * Math.PI * this.radius,
+perimeter: () => 
+2 * Math.PI * this.radius,
 };
-
 console.log(shape.diameter());
 console.log(shape.perimeter());</pre>
 `,
@@ -29,16 +29,19 @@ console.log(number);</pre>`,
                 time: 50
         },{
                 question: `
-<pre>const foo = () => console.log('First');
-const bar = () => setTimeout(() => console.log('Second'));
-const baz = () => console.log('Third');
+<pre>const foo = () => 
+console.log('First');
+const bar = () =>
+setTimeout(()=>console.log('Second'));
+const baz = () => 
+console.log('Third');
                 
 bar();
 foo();
 baz();</pre>`,
                 answer: "First Third Second",
                 wrong:  ['First Second Third','Second Third First','Second First Third'],
-                time: 40
+                time: 50
         },{
                 question: `<pre>console.log(eval('10*10+5'));</pre>`,
                 answer: "105",
@@ -52,7 +55,7 @@ age = 21;
 console.log(age);
 }
 
-getAge()</pre>;`,
+getAge();</pre>`,
                 answer: "ReferenceError",
                 wrong:  ['21','undefined','TypeError'],
                 time: 20
@@ -132,13 +135,13 @@ setTimeout(() => console.log(i), 1);
         },{
                 question: 
 `<pre> +true;
-!'Lydia'; `,
-                answer: "<pre>1 and false</pre>",
+!'Lydia';</pre> `,
+                answer: "1 and false",
                 wrong:  ['false and false','false and NaN'],
                 time: 50,
         },{
                 question: "<pre>console.log(3 + 4 + '5');</pre>",
-                answer: '"75',
+                answer: '"75"',
                 wrong:  ['"345"','"12"','12'],
                 time: 40,
         },{
