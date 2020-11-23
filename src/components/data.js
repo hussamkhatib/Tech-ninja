@@ -151,13 +151,14 @@ two things for you: the global object, and the "this" keyword.`,
         }
     ],[
         {
-            question: `let a = 3;
-            let b = new Number(3);
-            let c = 3;
-            
-            console.log(a == b);
-            console.log(a === b);
-            console.log(b === c);`,
+            question: `
+            <pre>let a = 3;
+let b = new Number(3);
+let c = 3;
+
+console.log(a == b);
+console.log(a === b);
+console.log(b === c);</pre>`,
             wrong:  ['true false true','false false true','false true true'],
             answer: "true false false",
             time: 70,
@@ -172,57 +173,69 @@ two things for you: the global object, and the "this" keyword.`,
                 wrong:  ['true','i dont know'],
                 time: 50,
         },{
-                question: `function sum(a, b) {
-                        return a + b;
-                      }
-                      
-                      sum(1, '2');`,
+                question: `
+<pre>function sum(a, b) {
+return a + b;
+}
+
+sum(1, '2');</pre>`,
                 answer: "'12'",
                 wrong:  ['3','NaN','TypeError'],
                 time: 40,
         },{
                 question: `
-                function getAge(...args) {
-                        console.log(typeof args);
-                      }
-                      
-                      getAge(21);`,
+<pre>function getAge(...args) {
+        console.log(typeof args);
+        }
+        
+        getAge(21);</pre>`,
                 answer: '"object"',
                 wrong:  ['"number"','"array"','"NaN"'],
                 time: 30,
         }
     ],[
         {
-            question: `let greeting;
-            greetign = {}; // Typo!
-            console.log(greetign);`,
+            question: `
+<pre>let greeting;
+greetign = {}; // Typo!
+console.log(greetign);</pre>`,
             answer: "{}",
             wrong:  ['ReferenceError: greetign is not defined','undefined'],
             time: 70,
         },{
-                question: "one more question",
+                question: `
+<pre>let randomValue = { name: "Lydia" }
+randomValue = 23
+
+if (!typeof randomValue === "string") {
+        console.log("It's not a string!")
+} else {
+        console.log("Yay it's a string!")
+}</pre>`,
                 answer: "5",
                 wrong:  ['6','7','8'],
-                time: 60,
+                time: 10,
         },{
-                question: `function sayHi() {
-                        return (() => 0)();
-                      }
-                      
-                      console.log(typeof sayHi());`,
+                question: `
+<pre>function sayHi() {
+        return (() => 0)();
+        }
+        
+        console.log(typeof sayHi());</pre>`,
                 answer: '"number"',
                 wrong:  ['"object"','"undefined"','"function"'],
                 time: 50,
         },{
-                question: `function* generator(i) {
-                        yield i;
-                        yield i * 2;
-                      }
-                      
-                      const gen = generator(10);
-                      
-                      console.log(gen.next().value);
-                      console.log(gen.next().value);`,
+                question: `
+<pre>function* generator(i) {
+        yield i;
+        yield i * 2;
+        }
+        
+        const gen = generator(10);
+        
+        console.log(gen.next().value);
+        console.log(gen.next().value);</pre>`,
                 answer: "10, 20",
                 wrong:  ['20, 20','0, 10 and 10, 20','[0, 10], [10, 20]'],
                 time: 40,
@@ -239,9 +252,10 @@ two things for you: the global object, and the "this" keyword.`,
             wrong:  ['[["L", "y", "d", "i", "a"]]','[[], "Lydia"]','["Lydia"]'],
             time: 70,
         },{
-                question: `const numbers = [1, 2, 3];
-                numbers[10] = 11;
-                console.log(numbers);`,
+                question: `
+<pre>const numbers = [1, 2, 3];
+numbers[10] = 11;
+console.log(numbers);</pre>`,
                 answer: "[1, 2, 3, 7 x empty, 11]",
                 wrong:  ['[1, 2, 3, 7 x null, 11]','SyntaxError','[1, 2, 3, 11]'],
                 time: 60,
@@ -251,40 +265,43 @@ two things for you: the global object, and the "this" keyword.`,
                 wrong:  [' number or object','trick question! only objects','function or object'],
                 time: 50,
         },{
-                question: `String.prototype.giveLydiaPizza = () => {
-                        return 'Just give Lydia pizza already!';
-                      };
-                      
-                      const name = 'Lydia';
-                      
-                      name.giveLydiaPizza();`,
+                question: `
+<pre>String.prototype.giveLydiaPizza = () => {
+        return 'Just give Lydia pizza already!';
+        };
+        
+        const name = 'Lydia'</pre>;
+        
+        name.giveLydiaPizza();</pre>`,
                 answer: '"Just give Lydia pizza already!"',
                 wrong:  ['TypeError: not a function','SyntaxError',' undefined'],
                 time: 40,
         },{
-                question: `const a = {};
-                const b = { key: 'b' };
-                const c = { key: 'c' };
-                
-                a[b] = 123;
-                a[c] = 456;
-                
-                console.log(a[b]);`,
+                question: `
+<pre>const a = {};
+const b = { key: 'b' };
+const c = { key: 'c' };
+
+a[b] = 123;
+a[c] = 456;
+
+console.log(a[b]);</pre>`,
                 answer: "456",
                 wrong:  ['123','undefined','ReferenceError'],
                 time: 60,
         }
     ],[
         {
-            question: `function checkAge(data) {
-                if (data === { age: 18 }) {
-                  console.log('You are an adult!');
-                } else if (data == { age: 18 }) {
-                  console.log('You are still an adult.');
-                } else {
-                  console.log('Hmm.. You don't have an age I guess');
-                }
-              }
+            question: `
+<pre>function checkAge(data) {
+if (data === { age: 18 }) {
+        console.log('You are an adult!');
+} else if (data == { age: 18 }) {
+        console.log('You are still an adult.');
+} else {
+        console.log('Hmm.. You don't have an age I guess');
+}
+}</pre>
               `,
             answer: "Hmm.. You don't have an age I guess",
             wrong:  ['You are an adult!','You are still an adult.'],
@@ -295,84 +312,90 @@ two things for you: the global object, and the "this" keyword.`,
                 wrong:  [`Forever, the data doesn't get lost.`,' When the user shuts off their computer.','When the user closes the entire browser, not only the tab.'],
                 time: 60,
         },{
-                question: `[1, 2, 3].map(num => {
+                question: `<pre>[1, 2, 3].map(num => {
                         if (typeof num === 'number') return;
                         return num * 2;
-                      });`,
+                      });</pre>`,
                 answer: "[undefined, undefined, undefined]",
                 wrong:  ['[]','[null, null, null]','[ 3 x empty ]'],
                 time: 60,
         },{
-                question: `(() => {
-                        let x = (y = 10);
-                      })();
-                      
-                      console.log(typeof x);
-                      console.log(typeof y);`,
+                question: `
+<pre>(() => {
+        let x = (y = 10);
+        })();
+        
+        console.log(typeof x);
+        console.log(typeof y);</pre>`,
                 answer: '"undefined", "number"',
                 wrong:  ['"number", "number"','"object", "number"','"number", "undefined"'],
                 time: 60
         },{
-                question: `const obj = { 1: 'a', 2: 'b', 3: 'c' };
+                question: `<pre>const obj = { 1: 'a', 2: 'b', 3: 'c' };
                 const set = new Set([1, 2, 3, 4, 5]);
                 
                 obj.hasOwnProperty('1');
                 obj.hasOwnProperty(1);
                 set.has('1');
-                set.has(1);`,
+                set.has(1);</pre>`,
                 answer: "true true false true",
                 wrong:  ['false true false true','false true true true','true true true true'],
                 time: 60,
         }
     ],[
         {
-            question: `const firstPromise = new Promise((res, rej) => {
-                setTimeout(res, 500, 'one');
-              });
-              
-              const secondPromise = new Promise((res, rej) => {
-                setTimeout(res, 100, 'two');
-              });
-              
-              Promise.race([firstPromise, secondPromise]).then(res => console.log(res));`,
+            question: `
+<pre>const firstPromise = new Promise((res, rej) => {
+setTimeout(res, 500, 'one');
+});
+
+const secondPromise = new Promise((res, rej) => {
+setTimeout(res, 100, 'two');
+});
+
+Promise.race([firstPromise, secondPromise]).then(res => console.log(res));</pre>`,
             answer: ' "two"',
             wrong:  ['"one"','"two" "one"','"one" "two"'],
             time: 70,
         },{
-                question: `const { name: myName } = { name: 'Lydia' };
-                      console.log(name)`,
+                question: `
+<pre>const { name: myName } = { name: 'Lydia' };
+        console.log(name)</pre>`,
                 answer: "ReferenceError",
                 wrong:  ['"myName','"Lydia"','undefined'],
                 time: 60,
         },{
-                question: `[[0, 1], [2, 3]].reduce(
-                        (acc, cur) => {
-                          return acc.concat(cur);
-                        },
-                        [1, 2],
-                      );`,
+                question: `
+<pre>[[0, 1], [2, 3]].reduce(
+        (acc, cur) => {
+                return acc.concat(cur);
+        },
+        [1, 2],
+        );</pre>`,
                 answer: "[1, 2, 0, 1, 2, 3]",
                 wrong:  ['[0, 1, 2, 3, 1, 2]','[1, 2, 6]','[6, 1, 2]'],
                 time: 50,
         },{
-                question: `const set = new Set([1, 1, 2, 3, 4]);
+                question: `
+<pre>const set = new Set([1, 1, 2, 3, 4]);
 
-                console.log(set);`,
+console.log(set);</pre>`,
                 answer: "{1, 2, 3, 4}",
                 wrong:  ['{1, 1, 2, 3, 4}','[1, 2, 3, 4]','[1, 1, 2, 3, 4]'],
                 time: 40,
         },{
-                question: `(() => {
-                        let x, y;
-                        try {
-                          throw new Error();
-                        } catch (x) {
-                          (x = 1), (y = 2);
-                          console.log(x);
-                        }
-                        console.log(x);
-                        console.log(y);
-                      })();`,
+                question: `
+<pre>(() => {
+        let x, y;
+        try {
+                throw new Error();
+        } catch (x) {
+                (x = 1), (y = 2);
+                console.log(x);
+        }
+        console.log(x);
+        console.log(y);
+        })();</pre>`,
                 answer: "1 undefined 2",
                 wrong:  ['undefined undefined undefined','1 1 2','1 undefined undefined'],
                 time: 60
