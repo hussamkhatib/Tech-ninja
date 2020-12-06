@@ -202,87 +202,63 @@ function App() {
   `
 
   return (
-    (showResults === 'startGame')? 
     <Wrapper>
       <Header>
           <Logo 
           Active={active}/>
-      </Header> 
-      <StartMain> 
-          
-          <Welcome 
-          startGame={startGame} 
-          Rules={rules} 
-          Visible={visible[1]}>
-            
+      </Header>
+      {showResults === 'startGame' && 
+        <StartMain>    
+            <Welcome 
+            startGame={startGame} 
+            Rules={rules} 
+            Visible={visible[1]}>
             <Rules 
             Visible={visible[0]} 
             startGame={startGame}/>
+            </Welcome>
+        </StartMain>
+      }  
+   
 
-          </Welcome>
-      </StartMain>
-    </Wrapper>
-    : (showResults === 'endGame') ?
-    <Wrapper>
-      <Header>
-          <Logo 
-          Active={active}/>
-      </Header> 
+    { showResults === 'endGame' && 
       <StartMain> 
-      
-      <EndGame 
-      Rank={8-rankIndex}/>
-
+        <EndGame 
+        Rank={8-rankIndex}/>
       </StartMain>
-    </Wrapper>
-
-    :(showResults === false) ?
-    <Wrapper>
-      <Header>
-
-        <Logo 
-        Active={active}/>
-
-      </Header>
+    }
+    {showResults === false && 
       <Main>
-
         <Card 
-        Active={active} >
-        
+        Active={active}>
           <CardHeader 
           Active={active} 
           questionIndex={questionIndex} 
           totalQuestions={questionData[rankIndex].length}
           Timer={seconds}/>
-            
           <Question 
           Question={questionData} 
           rankIndex={rankIndex} 
           questionIndex ={questionIndex}/>
-            
           <Options 
           Option={questionData[rankIndex][questionIndex]} 
           loadResult={loadResult} 
           Active={active}
           Random={random}
           showAll={half}/>
-
         </Card>
-          <Stats 
-          Active={active}>
+        <Stats 
+        Active={active}>
 
           <Rank 
           Active={active} 
           RankKyu={8-rankIndex}/>
-
           <Streak 
           rect={curStreak.streak} 
           Active={active} />
-
           <Life 
           Lives={lives} 
           Active={active}/>
-
           <Powerups 
           Disabled={disabled} 
           PowerupsCount={curStreak.powerups} 
@@ -291,25 +267,19 @@ function App() {
           freezeEvent={freezeEvent} 
           extraLiveEvent={extraLiveEvent} 
           Active={active}/>
-
         </Stats>
       </Main>
-    </Wrapper>
-            :
-    <Wrapper>
-      <Header >
-        <Logo Active={active}/>
+     }
 
-      </Header>
+    {showResults === true &&  
       <ResultsMain>
-
         <Results 
         nextQuestion={nextQuestion} 
         Active={active} 
         Correct={correct} 
         Promoted={promoted}/>
-
-      </ResultsMain>  
+      </ResultsMain> 
+    }
     </Wrapper>
   );
 }
