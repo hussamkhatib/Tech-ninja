@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Views, useView } from "../../context/view-context";
 
 const GridChild = styled.li`
   list-style: none;
@@ -49,12 +50,14 @@ const Rules = ({ startGame }) => {
         : "#866CC7"};
     color: #262729;
     padding: 0.4em 0.6em;
-    margin: 0.2em 0;
+    margin: 0.2em/ 0;
     border-radius: 20px;
     text-align: center;
     font-size: 0.8em;
     width: max-content;
   `;
+
+  const { setView } = useView();
 
   return (
     <div>
@@ -111,7 +114,7 @@ const Rules = ({ startGame }) => {
         </GridChild>
       </GridContainer>
       <ButtonWrapper>
-        <Button onClick={startGame}>Start</Button>
+        <Button onClick={() => setView(Views.GAME)}>Start</Button>
       </ButtonWrapper>
     </div>
   );

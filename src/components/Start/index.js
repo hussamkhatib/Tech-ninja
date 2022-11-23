@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Views, useView } from "../../context/view-context";
 import Rules from "./Rules";
 
 const Heading = styled.h2`
@@ -15,7 +16,8 @@ const Button = styled.button`
   margin: 0 0.2em;
 `;
 
-const Welcome = ({ startGame }) => {
+const Start = () => {
+  const { setView } = useView();
   const [isRulesOpen, setIsRulesOpen] = useState(false);
 
   const Wrapper = styled.div`
@@ -25,7 +27,7 @@ const Welcome = ({ startGame }) => {
   return (
     <>
       {isRulesOpen ? (
-        <Rules startGame={startGame} />
+        <Rules />
       ) : (
         <Wrapper>
           <Heading>A JavaScript Quiz</Heading>
@@ -34,11 +36,11 @@ const Welcome = ({ startGame }) => {
             limit.
           </Desc>
           <Button onClick={() => setIsRulesOpen(true)}>Rules</Button>
-          <Button onClick={startGame}>Start</Button>
+          <Button onClick={() => setView(Views.GAME)}>Start</Button>
         </Wrapper>
       )}
     </>
   );
 };
 
-export default Welcome;
+export default Start;
