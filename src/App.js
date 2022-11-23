@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { StartMain, ResultsMain, Main, colors } from "./AppStyles.js";
 
 import Header from "./components/Header";
-import Logo from "./components/Header/logo";
 
-import EndGame from "./components/startEnd/endGame";
-import Welcome from "./components/startEnd/welcome";
-import Rules from "./components/startEnd/rules";
+import EndGame from "./components/startEnd/EndGame";
+import Welcome from "./components/startEnd/Welcome";
 
 import Card from "./components/questionCard/card";
 import CardHeader from "./components/questionCard/cardHeader";
@@ -28,7 +26,6 @@ function App() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [rankIndex, setRankIndex] = useState(0);
 
-  const [visible, SetVisible] = useState(["none", "block"]);
   const [curStreak, setCurStreak] = useState({
     streak: [],
     powerups: [0, 0, 0, 0],
@@ -52,8 +49,6 @@ function App() {
     toggle();
     shuffleCards();
   };
-
-  const rules = () => SetVisible(["block", "none"]);
 
   const loadResult = (e) => {
     toggle();
@@ -202,22 +197,20 @@ function App() {
 
   return (
     <AppProvider>
-      <Header>
-        <Logo Active={active} />
-      </Header>
+      <Header />
+
       {showResults === "startGame" && (
         <StartMain>
-          <Welcome startGame={startGame} Rules={rules} Visible={visible[1]}>
-            <Rules Visible={visible[0]} startGame={startGame} />
-          </Welcome>
+          <Welcome startGame={startGame} />
         </StartMain>
       )}
 
       {showResults === "endGame" && (
         <StartMain>
-          <EndGame Rank={8 - rankIndex} />
+          <EndGame />
         </StartMain>
       )}
+
       {!showResults && (
         <Main>
           <Card Active={active}>

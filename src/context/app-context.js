@@ -4,7 +4,7 @@ import { createContext } from "react";
 import { colors } from "../constants";
 import styled from "styled-components";
 
-const AppContext = createContext();
+export const AppContext = createContext();
 
 function AppProvider({ children }) {
   const [rank, setRank] = useState(8);

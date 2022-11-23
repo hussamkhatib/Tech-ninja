@@ -9,6 +9,7 @@ const Wrapper = styled.div`
     margin: 0 1em;
   }
 `;
+
 const Stats = ({ children }) => {
   return <Wrapper>{children}</Wrapper>;
 };

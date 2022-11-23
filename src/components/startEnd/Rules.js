@@ -1,10 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 
-const Rules = ({ Visible, startGame, Color }) => {
-  const Wrapper = styled.div`
-    display: ${Visible};
-  `;
+const GridChild = styled.li`
+  list-style: none;
+  padding: 0.4em;
+  font-size: 0.7em;
+`;
+
+const Span = styled.span`
+  background: #303133;
+`;
+const Rule = styled.h4`
+  padding: 0.4em 0;
+`;
+const RuleDesc = styled.p`
+  font-size: 0.8em;
+  padding: 0.2em 0;
+`;
+const Button = styled.button`
+  padding: 0.6em 1em;
+  margin: 0 0.2em;
+  display: flex;
+  justify-content: center;
+`;
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 0.4em 0;
+`;
+
+const Rules = ({ startGame }) => {
   const GridContainer = styled.ul`
     display: grid;
     grid-template-columns: ${(props) =>
@@ -12,11 +37,7 @@ const Rules = ({ Visible, startGame, Color }) => {
     padding: 0.4em 0;
     gap: 1em;
   `;
-  const GridChild = styled.li`
-    list-style: none;
-    padding: 0.4em;
-    font-size: 0.7em;
-  `;
+
   const RankDisplay = styled.p`
     background: ${(props) =>
       props.Begineer
@@ -34,29 +55,9 @@ const Rules = ({ Visible, startGame, Color }) => {
     font-size: 0.8em;
     width: max-content;
   `;
-  const Span = styled.span`
-    background: #303133;
-  `;
-  const Rule = styled.h4`
-    padding: 0.4em 0;
-  `;
-  const RuleDesc = styled.p`
-    font-size: 0.8em;
-    padding: 0.2em 0;
-  `;
-  const Button = styled.button`
-    padding: 0.6em 1em;
-    margin: 0 0.2em;
-    display: flex;
-    justify-content: center;
-  `;
-  const ButtonWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    padding: 0.4em 0;
-  `;
+
   return (
-    <Wrapper>
+    <div>
       <Rule>Rules</Rule>
       <RuleDesc>
         you'll have to choose the output of code snippet given in the time
@@ -112,7 +113,7 @@ const Rules = ({ Visible, startGame, Color }) => {
       <ButtonWrapper>
         <Button onClick={startGame}>Start</Button>
       </ButtonWrapper>
-    </Wrapper>
+    </div>
   );
 };
 
