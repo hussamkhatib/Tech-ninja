@@ -55,8 +55,15 @@ const Answer = () => {
           ) : (
             <>
               <Comment>😞 Not Perfect</Comment>
-              <P>You Selected</P>
-              <Answer>{selected}</Answer>
+              {selected ? (
+                <>
+                  <P>You Selected</P>
+                  <Answer>{selected}</Answer>
+                </>
+              ) : (
+                <P>You did not select any option.</P>
+              )}
+
               <P>But the answer was</P>
               <Answer>{currentQuestion.answer}</Answer>
             </>
