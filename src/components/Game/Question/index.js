@@ -5,7 +5,7 @@ import questions from "../../../constants/questions";
 import Stats from "./Stats";
 import Options from "./Options";
 import { useTimer } from "./question.hooks";
-
+import { useState, useEffect, useMemo } from "react";
 const QuestionNO = styled.div`
   display: inline-block;
   padding: 0.2em 0.5em;
@@ -26,10 +26,19 @@ const QuestionH = styled.h2`
 
 const Question = () => {
   const {
-    quizState: { questionIndex },
+    quizState: {
+      questionIndex,
+      enabledPowerUps: { freeze },
+    },
+    theme,
   } = useQuiz();
   const currentQuestion = questions[questionIndex];
-  const { theme } = useQuiz();
+  // const timeLeft = useTimer(currentQuestion.time);
+
+  const {
+    quizState: { displayResult },
+    quizDispatch,
+  } = useQuiz();
   const timeLeft = useTimer(currentQuestion.time);
 
   const CardWrapper = styled.div`

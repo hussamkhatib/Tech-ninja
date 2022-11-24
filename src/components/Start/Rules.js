@@ -110,7 +110,7 @@ const Rules = ({ startGame }) => {
           ❄️ <Span>freeze the timer</Span>
         </GridChild>
         <GridChild>
-          +1❤️ <Span>get an extra live</Span>
+          ⊘ <Span>Skip the current question</Span>
         </GridChild>
       </GridContainer>
       <ButtonWrapper>
