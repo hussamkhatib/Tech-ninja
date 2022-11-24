@@ -19,7 +19,6 @@ const Timer = () => {
   const currentQuestion = questions[questionIndex];
   const timeLeft = useTimer(currentQuestion.time);
 
-  console.log(timeLeft);
   return <Timing> {freeze ? "--:--" : secondsToMMSS(timeLeft)}</Timing>;
 };
 
