@@ -15,7 +15,7 @@ const initialState = {
   currentStreak: 0,
   powerUps: {
     half: 1,
-    extraTime: 1,
+    resetTimer: 1,
     freeze: 1,
     skip: 1,
   },
