@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
-import { AppContext } from "../../context/app-context";
+import { useQuiz } from "../../context/quiz-context";
 
 const Logo = () => {
-  const { theme } = useContext(AppContext);
+  const { theme } = useQuiz();
   return (
     <svg
       width="60"
