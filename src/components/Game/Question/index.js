@@ -1,7 +1,9 @@
-import { Main } from "../../AppStyles";
+import { Main } from "../../../AppStyles";
 import styled from "styled-components";
-import { useQuiz } from "../../context/quiz-context";
-import questions from "../../constants/questions";
+import { useQuiz } from "../../../context/quiz-context";
+import questions from "../../../constants/questions";
+import Stats from "./Stats";
+import Options from "./Options";
 
 const QuestionNO = styled.div`
   display: inline-block;
@@ -19,12 +21,6 @@ const QuestionWrapper = styled.div`
 `;
 const QuestionH = styled.h2`
   font-size: 0.8em;
-`;
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 1em;
-  gap: 1em;
 `;
 
 const Question = () => {
@@ -59,49 +55,13 @@ const Question = () => {
         </QuestionWrapper>
         <Options />
       </CardWrapper>
+      <Stats />
     </Main>
   );
 };
 
 export default Question;
 
-const Options = () => {
-  const { theme } = useQuiz();
-  const {
-    quizState: { questionIndex },
-    quizDispatch,
-  } = useQuiz();
-  const OptionElement = styled.button`
-    border-radius: 3px;
-    background: none;
-    color: inherit;
-    padding: 1em;
-    border: 2px solid ${theme};
-    &:hover {
-      background: ${theme};
-      color: #262729;
-    }
-  `;
-  const question = questions[questionIndex];
-
-  const options = [...question.wrong, question.answer];
-  //TODO: Shuffle the options
-
-  return (
-    <Grid>
-      {options.map((item) => (
-        <OptionElement
-          key={item}
-          onClick={() =>
-            quizDispatch({ type: "SUBMIT_ANSWER", selected: item })
-          }
-        >
-          {item}
-        </OptionElement>
-      ))}
-    </Grid>
-  );
-};
 // const secondsToMMSS = (seconds) => {
 //   var m = Math.floor(seconds / 60);
 //   var s = seconds % 60;

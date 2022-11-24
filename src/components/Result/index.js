@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useRank } from "../../hooks/useRank";
+import { useQuiz } from "../../context/quiz-context";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -11,7 +11,7 @@ const GameOver = styled.h2`
 `;
 
 const EndGame = () => {
-  const rank = useRank();
+  const rank = useQuiz();
 
   return (
     <Wrapper>

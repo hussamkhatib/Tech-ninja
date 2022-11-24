@@ -1,6 +1,7 @@
 import React from "react";
 import { StreakHeading, Wrapper } from "./streakStyles";
 import styled from "styled-components";
+import { useQuiz } from "../../context/quiz-context";
 
 const SvgContainer = styled.svg`
   padding: 0.2em;
@@ -8,6 +9,9 @@ const SvgContainer = styled.svg`
 `;
 
 const Streak = ({ rect, Active }) => {
+  const {
+    quizState: { currentStreak },
+  } = useQuiz();
   const SvgDiv = styled.div`
     border: 1px solid ${Active};
     min-width: 120px;
@@ -16,14 +20,10 @@ const Streak = ({ rect, Active }) => {
     display: flex;
   `;
 
-  const svgs = [];
   const chunkSize = 5;
   const rectLength = rect.length;
   const svgLength = Math.ceil(rectLength / chunkSize);
 
-  for (let i = 0; i < svgLength; i++) {
-    svgs.push(i);
-  }
   const x = [0, 6.5, 13, 19.5, 0];
 
   const rectChunks = [];
@@ -37,7 +37,7 @@ const Streak = ({ rect, Active }) => {
     <Wrapper>
       <StreakHeading>streak</StreakHeading>
       <SvgDiv>
-        {svgs.map((svgItem, index) => (
+        {Array.from({ length: currentStreak }).map((svgItem, index) => (
           <SvgContainer
             key={index}
             {...svgItem}
