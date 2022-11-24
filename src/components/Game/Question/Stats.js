@@ -2,6 +2,8 @@ import { useQuiz } from "../../../context/quiz-context";
 import styled from "styled-components";
 import { RankHeading } from "../../stats/streakStyles";
 import Streak from "./Streak";
+import Lives from "./Lives";
+import Powerups from "./Powerups";
 
 const StatsWrapper = styled.div`
   @media screen and (max-width: 768px) {
@@ -39,6 +41,8 @@ const Stats = () => {
         <RankDisplay>{`${rank} kyu`}</RankDisplay>
       </RankWrapper>
       <Streak />
+      <Lives />
+      <Powerups />
     </StatsWrapper>
   );
 };

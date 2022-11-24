@@ -5,18 +5,26 @@ import { colors } from "../constants";
 // NOTE: Intentionally not exporting this context
 const QuizContext = createContext();
 
+const initialEnabledPowerUps = {
+  half: false,
+  extraTime: false,
+  freeze: false,
+};
 const initialState = {
   questionIndex: 0,
   currentStreak: 0,
-  //   powerUps: {
-  //     skip: 0,
-  //     fiftyFifty: 0,
-  //     doublePoints: 0,
-  //   },
+  powerUps: {
+    half: 1,
+    extraTime: 1,
+    freeze: 1,
+    skip: 1,
+  },
+  enabledPowerUps: initialEnabledPowerUps,
   totalCorrect: 0,
   totalWrong: 0,
   selected: null,
   displayResult: false,
+  lives: 3,
 };
 
 function quizReducer(state, action) {
@@ -33,14 +41,17 @@ function quizReducer(state, action) {
         ? state.totalCorrect + 1
         : state.totalCorrect;
       const newTotalWrong = isCorrect ? state.totalWrong : state.totalWrong + 1;
+      const newLives = isCorrect ? state.lives : state.lives - 1;
 
       return {
         ...state,
         currentStreak: newStreak,
         totalCorrect: newTotalCorrect,
         totalWrong: newTotalWrong,
+        lives: newLives,
         selected,
         displayResult: true,
+        enabledPowerUps: initialEnabledPowerUps,
       };
     }
     case "NEXT_QUESTION": {
@@ -48,6 +59,42 @@ function quizReducer(state, action) {
         ...state,
         questionIndex: state.questionIndex + 1,
         displayResult: false,
+      };
+    }
+    case "SKIP_QUESTION": {
+      return {
+        ...state,
+        questionIndex: state.questionIndex + 1,
+        powerUps: {
+          ...state.powerUps,
+          skip: state.powerUps["skip"] - 1,
+        },
+        displayResult: false,
+        enabledPowerUps: initialEnabledPowerUps,
+      };
+    }
+    case "USE_POWERUP": {
+      const { payload } = action;
+      return {
+        ...state,
+        enabledPowerUps: {
+          ...state.enabledPowerUps,
+          [payload]: true,
+        },
+        powerUps: {
+          ...state.powerUps,
+          [payload]: state.powerUps[payload] - 1,
+        },
+      };
+    }
+    case "DISABLE_POWERUP": {
+      const { powerUp } = action;
+      return {
+        ...state,
+        enabledPowerUps: {
+          ...state.enabledPowerUps,
+          [powerUp]: false,
+        },
       };
     }
     default: {

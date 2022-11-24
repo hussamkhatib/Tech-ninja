@@ -10,11 +10,15 @@ const Grid = styled.div`
 `;
 
 const Options = () => {
-  const { theme } = useQuiz();
   const {
-    quizState: { questionIndex },
+    quizState: {
+      questionIndex,
+      enabledPowerUps: { half },
+    },
     quizDispatch,
+    theme,
   } = useQuiz();
+
   const OptionElement = styled.button`
     border-radius: 3px;
     background: none;
@@ -27,8 +31,9 @@ const Options = () => {
     }
   `;
   const question = questions[questionIndex];
+  const wrong = half ? question.wrong.slice(0, 1) : question.wrong;
 
-  const options = [...question.wrong, question.answer];
+  const options = [...wrong, question.answer];
   //TODO: Shuffle the options
 
   return (
