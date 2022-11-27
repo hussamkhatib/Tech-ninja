@@ -104,13 +104,13 @@ const Rules = ({ startGame }) => {
           ½ <Span>reduce options to 2</Span>
         </GridChild>
         <GridChild>
-          ⌛⁺ <Span>get 50% extra of the time</Span>
+          ⟳ <Span>Reset Timer</Span>
         </GridChild>
         <GridChild>
           ❄️ <Span>freeze the timer</Span>
         </GridChild>
         <GridChild>
-          +1❤️ <Span>get an extra live</Span>
+          ⊘ <Span>Skip the current question</Span>
         </GridChild>
       </GridContainer>
       <ButtonWrapper>

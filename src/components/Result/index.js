@@ -11,7 +11,7 @@ const GameOver = styled.h2`
 `;
 
 const EndGame = () => {
-  const rank = useQuiz();
+  const { rank } = useQuiz();
 
   return (
     <Wrapper>

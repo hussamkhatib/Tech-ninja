@@ -1,6 +1,6 @@
 import { useQuiz } from "../../../context/quiz-context";
 import styled from "styled-components";
-import { StreakHeading, Wrapper } from "../../stats/streakStyles";
+import { StreakHeading, Wrapper } from "./StreakStyles";
 
 const SvgContainer = styled.svg`
   padding: 0.2em;

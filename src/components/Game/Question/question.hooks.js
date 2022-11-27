@@ -3,7 +3,10 @@ import { useQuiz } from "../../../context/quiz-context";
 
 function useTimer(totalTime) {
   const {
-    quizState: { displayResult },
+    quizState: {
+      displayResult,
+      enabledPowerUps: { freeze },
+    },
     quizDispatch,
   } = useQuiz();
   const [timer, setTimer] = useState(totalTime);
@@ -14,12 +17,14 @@ function useTimer(totalTime) {
       quizDispatch({ type: "SUBMIT_ANSWER", selected: null });
       return;
     }
-    const interval = setInterval(() => {
-      setTimer((timer) => timer - 1);
-    }, 1000);
+    if (!freeze) {
+      const interval = setInterval(() => {
+        setTimer((timer) => timer - 1);
+      }, 1000);
 
-    return () => clearInterval(interval);
-  }, [timer, displayResult, quizDispatch]);
+      return () => clearInterval(interval);
+    }
+  }, [timer, displayResult, quizDispatch, freeze]);
 
   return displayResult ? null : timer;
 }

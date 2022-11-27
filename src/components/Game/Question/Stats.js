@@ -1,6 +1,6 @@
 import { useQuiz } from "../../../context/quiz-context";
 import styled from "styled-components";
-import { RankHeading } from "../../stats/streakStyles";
+import { RankHeading } from "./StreakStyles";
 import Streak from "./Streak";
 import Lives from "./Lives";
 import Powerups from "./Powerups";

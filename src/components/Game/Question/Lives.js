@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useQuiz } from "../../../context/quiz-context";
-import { SvgHeading } from "../../stats/streakStyles";
+import { SvgHeading } from "./StreakStyles";
 
 const Wrapper = styled.div`
   display: flex;

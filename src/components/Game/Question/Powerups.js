@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useQuiz } from "../../../context/quiz-context";
-import { PowerupsHeading } from "../../stats/streakStyles";
+import { PowerupsHeading } from "./StreakStyles";
 
 const ButtonDiv = styled.div`
   display: grid;
@@ -24,8 +24,8 @@ const powerUpsArr = [
     event: "half",
   },
   {
-    text: "⌛⁺",
-    event: "extraTime",
+    text: "⟳",
+    event: "resetTimer",
   },
   {
     text: "❄️",

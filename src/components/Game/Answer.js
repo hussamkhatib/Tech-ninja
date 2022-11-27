@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { ResultsMain } from "../../AppStyles";
 import { useQuiz } from "../../context/quiz-context";
+import { useView, Views } from "../../context/view-context";
+
 import questions from "../../constants/questions";
 
 const BtnWrapper = styled.div`
@@ -15,16 +17,17 @@ const P = styled.p`
 const Comment = styled.h2`
   padding: 0.7em 0;
 `;
-const Promotion = styled.p`
+const Text = styled.p`
   font-size: 0.9em;
   padding: 0 0.4em;
   display: inline;
 `;
 
 const Answer = () => {
-  const { theme } = useQuiz();
+  const { theme, rank } = useQuiz();
+  const { setView } = useView();
   const {
-    quizState: { selected, questionIndex },
+    quizState: { selected, questionIndex, lives },
     quizDispatch,
   } = useQuiz();
   const Button = styled.button`
@@ -41,7 +44,6 @@ const Answer = () => {
 
   const currentQuestion = questions[questionIndex];
   const isCorrect = selected === currentQuestion.answer;
-
   return (
     <>
       <ResultsMain>
@@ -69,13 +71,21 @@ const Answer = () => {
             </>
           )}
           <BtnWrapper>
-            {/* TODO: fix this */}
-            {/* {Promoted[0] && (
-              <Promotion>you are promoted to {Promoted[1]} kyu</Promotion>
-            )} */}
-            <Button onClick={() => quizDispatch({ type: "NEXT_QUESTION" })}>
-              Next question
-            </Button>
+            {lives === 0 ? (
+              <>
+                <Text>You have no lives left.</Text>
+                <Button onClick={() => setView(Views.RESULT)}>End Game</Button>
+              </>
+            ) : (
+              <>
+                {(questionIndex + 2) % 5 === 1 && (
+                  <Text>you are promoted to {rank - 1} kyu</Text>
+                )}
+                <Button onClick={() => quizDispatch({ type: "NEXT_QUESTION" })}>
+                  Next question
+                </Button>
+              </>
+            )}
           </BtnWrapper>
         </div>
       </ResultsMain>
