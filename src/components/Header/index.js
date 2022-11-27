@@ -1,14 +1,22 @@
-import React from "react";
-import { HeadWrapper, Heading } from "./headerStyles";
+import styled from "styled-components";
 import Logo from "./Logo";
 
 const Header = () => {
   return (
-    <HeadWrapper>
+    <Wrapper>
       <Logo />
       <Heading>Tech Ninjas</Heading>
-    </HeadWrapper>
+    </Wrapper>
   );
 };
 
 export default Header;
+
+export const Wrapper = styled.div`
+  display: flex;
+`;
+
+export const Heading = styled.h1`
+  align-self: center;
+  font-size: 1.8em;
+`;

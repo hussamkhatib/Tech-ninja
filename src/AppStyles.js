@@ -12,14 +12,8 @@ export const Main = styled.div`
   }
   gap: 1em;
 `;
-export const StartMain = styled(Main)`
-  @media screen and (min-width: 769px) {
-    grid-template-columns: unset;
-  }
-`;
+
 export const ResultsMain = styled(Main)`
   max-width: 40ch;
   padding: 1.5em;
 `;
-
-export const colors = ["#e6e6e6", "#ECB613", "#3C7EBB", "#866CC7"];

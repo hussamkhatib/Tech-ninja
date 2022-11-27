@@ -2,12 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Views, useView } from "../../context/view-context";
 
-const GridChild = styled.li`
-  list-style: none;
-  padding: 0.4em;
-  font-size: 0.7em;
-`;
-
 const Span = styled.span`
   background: #303133;
 `;
@@ -19,44 +13,21 @@ const RuleDesc = styled.p`
   padding: 0.2em 0;
 `;
 const Button = styled.button`
-  padding: 0.6em 1em;
+  padding: 0.4em 0.6em;
   margin: 0 0.2em;
   display: flex;
   justify-content: center;
+  font-size: 0.7em;
+  border-radius: 7px;
 `;
+
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding: 0.4em 0;
 `;
 
-const Rules = ({ startGame }) => {
-  const GridContainer = styled.ul`
-    display: grid;
-    grid-template-columns: ${(props) =>
-      props.Rank ? "repeat(auto-fill, minmax(70px, 1fr))" : "1fr 1fr"};
-    padding: 0.4em 0;
-    gap: 1em;
-  `;
-
-  const RankDisplay = styled.p`
-    background: ${(props) =>
-      props.Begineer
-        ? "#e6e6e6"
-        : props.Novice
-        ? "#ECB613"
-        : props.Competent
-        ? "#3C7EBB"
-        : "#866CC7"};
-    color: #262729;
-    padding: 0.4em 0.6em;
-    margin: 0.2em/ 0;
-    border-radius: 20px;
-    text-align: center;
-    font-size: 0.8em;
-    width: max-content;
-  `;
-
+const Rules = () => {
   const { setView } = useView();
 
   return (
@@ -74,45 +45,8 @@ const Rules = ({ startGame }) => {
           codewars
         </a>
       </RuleDesc>
-      <GridContainer Rank>
-        <GridChild>
-          Begineer
-          <RankDisplay Begineer>8kyu</RankDisplay>
-          <RankDisplay Begineer>7kyu</RankDisplay>
-        </GridChild>
-        <GridChild>
-          Novice
-          <RankDisplay Novice>6kyu</RankDisplay>
-          <RankDisplay Novice>5kyu</RankDisplay>
-        </GridChild>
-        <GridChild>
-          Competent
-          <RankDisplay Competent>4kyu</RankDisplay>
-          <RankDisplay Competent>3kyu</RankDisplay>
-        </GridChild>
-        <GridChild>
-          Proficient
-          <RankDisplay>2kyu</RankDisplay>
-          <RankDisplay>1kyu</RankDisplay>
-        </GridChild>
-      </GridContainer>
-      <Rule>Powerups</Rule>
-
-      <RuleDesc>Powerups can be earned after every 5 streak</RuleDesc>
-      <GridContainer>
-        <GridChild>
-          ½ <Span>reduce options to 2</Span>
-        </GridChild>
-        <GridChild>
-          ⟳ <Span>Reset Timer</Span>
-        </GridChild>
-        <GridChild>
-          ❄️ <Span>freeze the timer</Span>
-        </GridChild>
-        <GridChild>
-          ⊘ <Span>Skip the current question</Span>
-        </GridChild>
-      </GridContainer>
+      <Ranks />
+      <Powerups />
       <ButtonWrapper>
         <Button onClick={() => setView(Views.GAME)}>Start</Button>
       </ButtonWrapper>
@@ -121,3 +55,92 @@ const Rules = ({ startGame }) => {
 };
 
 export default Rules;
+
+const Ranks = () => {
+  const Chip = styled.div`
+    background: ${(props) =>
+      props.Begineer
+        ? "#e6e6e6"
+        : props.Novice
+        ? "#ECB613"
+        : props.Competent
+        ? "#3C7EBB"
+        : "#866CC7"};
+    color: #262729;
+    padding: 0.4em 0.6em;
+    margin: 0.2em/ 0;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 0.8em;
+    width: max-content;
+  `;
+
+  return (
+    <RanksWrapper>
+      <RanksChild>
+        <span>Begineer</span>
+        <Chip Begineer>8kyu</Chip>
+        <Chip Begineer>7kyu</Chip>
+      </RanksChild>
+      <RanksChild>
+        <span>Novice</span>
+        <Chip Novice>6kyu</Chip>
+        <Chip Novice>5kyu</Chip>
+      </RanksChild>
+      <RanksChild>
+        <span>Competent</span>
+        <Chip Competent>4kyu</Chip>
+        <Chip Competent>3kyu</Chip>
+      </RanksChild>
+      <RanksChild>
+        <span>Proficient</span>
+        <Chip>2kyu</Chip>
+        <Chip>1kyu</Chip>
+      </RanksChild>
+    </RanksWrapper>
+  );
+};
+
+const RanksWrapper = styled.div`
+  display: flex;
+  padding: 0.4em 0;
+  gap: 1em;
+`;
+
+const RanksChild = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.4em 0;
+  gap: 0.2em;
+`;
+
+const Powerups = () => {
+  return (
+    <>
+      <Rule>Powerups</Rule>
+      <RuleDesc>Powerups can be earned after every 5 streak</RuleDesc>
+      <PowerupsWrapper>
+        <RanksChild>
+          ½ <Span>reduce options to 2</Span>
+        </RanksChild>
+        <RanksChild>
+          ⟳ <Span>Reset Timer</Span>
+        </RanksChild>
+        <RanksChild>
+          ❄️ <Span>freeze the timer</Span>
+        </RanksChild>
+        <RanksChild>
+          ⊘ <Span>Skip the current question</Span>
+        </RanksChild>
+      </PowerupsWrapper>
+    </>
+  );
+};
+
+const PowerupsWrapper = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.4em 0;
+  gap: 1em;
+`;
