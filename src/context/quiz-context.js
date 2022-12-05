@@ -52,6 +52,19 @@ function quizReducer(state, action) {
         selected,
         displayResult: true,
         enabledPowerUps: initialEnabledPowerUps,
+        powerUps: {
+          half: newStreak === 5 ? state.powerUps.half + 1 : state.powerUps.half,
+          resetTimer:
+            newStreak === 10
+              ? state.powerUps.resetTimer + 1
+              : state.powerUps.resetTimer,
+          freeze:
+            newStreak === 15
+              ? state.powerUps.freeze + 1
+              : state.powerUps.freeze,
+          skip:
+            newStreak === 20 ? state.powerUps.skip + 1 : state.powerUps.skip,
+        },
       };
     }
     case "NEXT_QUESTION": {
